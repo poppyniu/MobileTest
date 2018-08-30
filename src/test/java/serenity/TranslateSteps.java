@@ -524,11 +524,12 @@ public class TranslateSteps {
 
     private void cleanSchedulePageTranslate(ArrayList<String> excelList, String platform) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
+        PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), CleanPage.class);
         morePage.cleanSchedule.click();
         if (platform.equals("ios")) {
             CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[1]"), 60, platform);
         } else {
-            CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/titleContent"), 3, platform);
+            CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/titleContent"), 10, platform);
             Thread.sleep(6000);
         }
         if (CommonPage.elementExist(morePage.titleOnCleanSchedulePage)) {
@@ -538,193 +539,193 @@ public class TranslateSteps {
             verifyTranslate(titleStr, excelList, "clean schedule");
             verifyTranslate(contentStr, excelList, "clean schedule");
         }
-//        //and new clean schedule and translate
-//        morePage.addScheduleBtnOnCleanSchedulePage.click();
-//        Thread.sleep(3000);
-//        String cancelStr = morePage.cancelBtnOnAddNewSchedulePage.getText();
-//        String titleStr = morePage.titleOnAddNewSchedulePage.getText();
-//        String saveStr = morePage.saveBtnOnAddNewSchedulePage.getText();
-//        String scheduleTypeStr = morePage.scheduleTypeOnAddNewSchedulePage.getText();
-//        String autoCleanStr = morePage.autoCleanOnAddNewSchedulePage.getText();
-//        String timeSettingStr = morePage.timeSettingOnAddNewSchedulePage.getText();
-//        String repeatRateStr = morePage.repeatReatOnAddNewSchedulePage.getText();
-//        String oneTimeStr = morePage.repeatTimesOnAddNewSchedulePage.getText();
-//        verifyTranslate(cancelStr, excelList, "add new schedule");
-//        verifyTranslate(titleStr, excelList, "add new schedule");
-//        verifyTranslate(saveStr, excelList, "add new schedule");
-//        verifyTranslate(scheduleTypeStr, excelList, "add new schedule");
-//        verifyTranslate(autoCleanStr, excelList, "add new schedule");
-//        verifyTranslate(timeSettingStr, excelList, "add new schedule");
-//        verifyTranslate(repeatRateStr, excelList, "add new schedule");
-//        verifyTranslate(oneTimeStr, excelList, "add new schedule");
-//        //repeat rate page translate
-//        morePage.repeatReatOnAddNewSchedulePage.click();
-//        Thread.sleep(5000);
-//        String repeatRateTitleStr = morePage.titleOnRepeatRatePage.getText();
-//        String weekDayStr1 = morePage.panel1OnRepeatRatePage.getText();
-//        String weekDayStr2 = morePage.panel2OnRepeatRatePage.getText();
-//        String weekDayStr3 = morePage.panel3OnRepeatRatePage.getText();
-//        String weekDayStr4 = morePage.panel4OnRepeatRatePage.getText();
-//        String weekDayStr5 = morePage.panel5OnRepeatRatePage.getText();
-//        String weekDayStr6 = morePage.panel6OnRepeatRatePage.getText();
-//        String weekDayStr7 = morePage.panel7OnRepeatRatePage.getText();
-//        verifyTranslate(repeatRateTitleStr, excelList, "repeat rate");
-//        verifyTranslate(weekDayStr1, excelList, "repeat rate");
-//        verifyTranslate(weekDayStr2, excelList, "repeat rate");
-//        verifyTranslate(weekDayStr3, excelList, "repeat rate");
-//        verifyTranslate(weekDayStr4, excelList, "repeat rate");
-//        verifyTranslate(weekDayStr5, excelList, "repeat rate");
-//        verifyTranslate(weekDayStr6, excelList, "repeat rate");
-//        verifyTranslate(weekDayStr7, excelList, "repeat rate");
-//        morePage.backBtnOnRepeatRatePage.click();
-//        morePage.cancelBtnOnAddNewSchedulePage.click();
-//        Thread.sleep(4000);
-//        //add different kind of clean schedule and check translate result
-//        delSchedule(appiumDriver, platform);
-//        //choose every sunday and check translate
-//        everyWeek = new ArrayList<>();
-//        everyWeek.add("周日");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//        //verify delete
-//        if (platform.equals("ios")) {
-//            CommonPage.swipeElementToLeft(appiumDriver, morePage.scheduleList.get(1));
-//        } else {
-//            CommonPage.swipeElementToLeft(appiumDriver, morePage.scheduleList.get(0));
-//        }
-//        String deleteBtnStr = morePage.delBtn.getText();
-//        verifyTranslate(deleteBtnStr, excelList, "delete schedule");
-//        if (platform.equals("ios")) {
-//            morePage.scheduleList.get(1).click();
-//        } else {
-//            morePage.scheduleList.get(0).click();
-//        }
-//        //get into edit mode
-//        if (platform.equals("ios")) {
-//            morePage.scheduleList.get(1).click();
-//        } else {
-//            morePage.scheduleList.get(0).click();
-//        }
-//        //标题
-//        String editScheTitle = morePage.titleLabelOnEditSchedulePage.getText();
-//        verifyTranslate(editScheTitle, excelList, "edit schedule");
-//        //取消
-//        String editScheCancel = morePage.cancelBtnnEditSchedulePage.getText();
-//        verifyTranslate(editScheCancel, excelList, "edit schedule");
-//        //保存
-//        String editScheSave = morePage.saveBtnnEditSchedulePage.getText();
-//        verifyTranslate(editScheSave, excelList, "edit schedule");
-//        //预约类型
-//        String editScheType = morePage.scheduleTypeLabelnEditSchedulePage.getText();
-//        verifyTranslate(editScheType, excelList, "edit schedule");
-//        //自动清扫
-//        String editScheAutoClean = morePage.autoCleanLabelnEditSchedulePage.getText();
-//        verifyTranslate(editScheAutoClean, excelList, "edit schedule");
-//        //时间设置
-//        String editScheTimeSet = morePage.timeSettingLabelnEditSchedulePage.getText();
-//        verifyTranslate(editScheTimeSet, excelList, "edit schedule");
-//        //重复频率
-//        String editScheFrequency = morePage.frequencyLabelnEditSchedulePage.getText();
-//        verifyTranslate(editScheFrequency, excelList, "edit schedule");
-//        //重复频率值-周日
-//        String editScheFrequencyValue = morePage.frequencyValueLabelnEditSchedulePage.getText();
-//        verifyTranslate(editScheFrequencyValue, excelList, "edit schedule");
-//        //删除预约
-//        String delSche = morePage.delScheBtnInEditSchedulePage.getText();
-//        verifyTranslate(delSche, excelList, "edit schedule");
-//        morePage.delScheBtnInEditSchedulePage.click();
-//        Thread.sleep(5000);
-//
-//        //选择每周一,查看重复频率是否为周一
-//        everyWeek.clear();
-//        everyWeek.add("周一");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//
-//        //选择每周二,查看重复频率是否为周二
-//        everyWeek.clear();
-//        everyWeek.add("周二");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//
-//        //选择每周三,查看重复频率是否为周三
-//        everyWeek.clear();
-//        everyWeek.add("周三");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//
-//        //选择每周四,查看重复频率是否为周四
-//        everyWeek.clear();
-//        everyWeek.add("周四");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//
-//        //选择每周五,查看重复频率是否为周五
-//        everyWeek.clear();
-//        everyWeek.add("周五");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//
-//        //选择每周六,查看重复频率是否为周六
-//        everyWeek.clear();
-//        everyWeek.add("周六");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//
-//        //选择每周六和日,查看重复频率是否为周末
-//        everyWeek.clear();
-//        everyWeek.add("周日");
-//        everyWeek.add("周六");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//        delSchedule(appiumDriver, platform);
-//
-//        //选择每周一到五,查看重复频率是否为工作日
-//        everyWeek.clear();
-//        everyWeek.add("周一");
-//        everyWeek.add("周二");
-//        everyWeek.add("周三");
-//        everyWeek.add("周四");
-//        everyWeek.add("周五");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//
-//        //选择所有,查看重复频率是否每天
-//        everyWeek.clear();
-//        everyWeek.add("周日");
-//        everyWeek.add("周一");
-//        everyWeek.add("周二");
-//        everyWeek.add("周三");
-//        everyWeek.add("周四");
-//        everyWeek.add("周五");
-//        everyWeek.add("周六");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//        delSchedule(appiumDriver, platform);
-//
-//        //周日和周一
-//        everyWeek.clear();
-//        everyWeek.add("周日");
-//        everyWeek.add("周一");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//        delSchedule(appiumDriver, platform);
-//
-//        //周二,周三和周四
-//        everyWeek.clear();
-//        everyWeek.add("周二");
-//        everyWeek.add("周三");
-//        everyWeek.add("周四");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//        delSchedule(appiumDriver, platform);
-//
-//        //周三,周四,周五和周六
-//        everyWeek.clear();
-//        everyWeek.add("周三");
-//        everyWeek.add("周四");
-//        everyWeek.add("周五");
-//        everyWeek.add("周六");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//        delSchedule(appiumDriver, platform);
-//
-//        //周日,周一,周二,周三和周四
-//        everyWeek.clear();
-//        everyWeek.add("周日");
-//        everyWeek.add("周一");
-//        everyWeek.add("周二");
-//        everyWeek.add("周三");
-//        everyWeek.add("周四");
-//        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
-//        delSchedule(appiumDriver, platform);
+        //and new clean schedule and translate
+        morePage.addScheduleBtnOnCleanSchedulePage.click();
+        Thread.sleep(3000);
+        String cancelStr = morePage.cancelBtnOnAddNewSchedulePage.getText();
+        String titleStr = morePage.titleOnAddNewSchedulePage.getText();
+        String saveStr = morePage.saveBtnOnAddNewSchedulePage.getText();
+        String scheduleTypeStr = morePage.scheduleTypeOnAddNewSchedulePage.getText();
+        String autoCleanStr = morePage.autoCleanOnAddNewSchedulePage.getText();
+        String timeSettingStr = morePage.timeSettingOnAddNewSchedulePage.getText();
+        String repeatRateStr = morePage.repeatReatOnAddNewSchedulePage.getText();
+        String oneTimeStr = morePage.repeatTimesOnAddNewSchedulePage.getText();
+        verifyTranslate(cancelStr, excelList, "add new schedule");
+        verifyTranslate(titleStr, excelList, "add new schedule");
+        verifyTranslate(saveStr, excelList, "add new schedule");
+        verifyTranslate(scheduleTypeStr, excelList, "add new schedule");
+        verifyTranslate(autoCleanStr, excelList, "add new schedule");
+        verifyTranslate(timeSettingStr, excelList, "add new schedule");
+        verifyTranslate(repeatRateStr, excelList, "add new schedule");
+        verifyTranslate(oneTimeStr, excelList, "add new schedule");
+        //repeat rate page translate
+        morePage.repeatReatOnAddNewSchedulePage.click();
+        Thread.sleep(5000);
+        String repeatRateTitleStr = morePage.titleOnRepeatRatePage.getText();
+        String weekDayStr1 = morePage.panel1OnRepeatRatePage.getText();
+        String weekDayStr2 = morePage.panel2OnRepeatRatePage.getText();
+        String weekDayStr3 = morePage.panel3OnRepeatRatePage.getText();
+        String weekDayStr4 = morePage.panel4OnRepeatRatePage.getText();
+        String weekDayStr5 = morePage.panel5OnRepeatRatePage.getText();
+        String weekDayStr6 = morePage.panel6OnRepeatRatePage.getText();
+        String weekDayStr7 = morePage.panel7OnRepeatRatePage.getText();
+        verifyTranslate(repeatRateTitleStr, excelList, "repeat rate");
+        verifyTranslate(weekDayStr1, excelList, "repeat rate");
+        verifyTranslate(weekDayStr2, excelList, "repeat rate");
+        verifyTranslate(weekDayStr3, excelList, "repeat rate");
+        verifyTranslate(weekDayStr4, excelList, "repeat rate");
+        verifyTranslate(weekDayStr5, excelList, "repeat rate");
+        verifyTranslate(weekDayStr6, excelList, "repeat rate");
+        verifyTranslate(weekDayStr7, excelList, "repeat rate");
+        morePage.backBtnOnRepeatRatePage.click();
+        morePage.cancelBtnOnAddNewSchedulePage.click();
+        Thread.sleep(4000);
+        //add different kind of clean schedule and check translate result
+        delSchedule(appiumDriver, platform);
+        //choose every sunday and check translate
+        everyWeek = new ArrayList<>();
+        everyWeek.add("周日");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+        //verify delete
+        if (platform.equals("ios")) {
+            CommonPage.swipeElementToLeft(appiumDriver, morePage.scheduleList.get(1));
+        } else {
+            CommonPage.swipeElementToLeft(appiumDriver, morePage.scheduleList.get(0));
+        }
+        String deleteBtnStr = morePage.delBtn.getText();
+        verifyTranslate(deleteBtnStr, excelList, "delete schedule");
+        if (platform.equals("ios")) {
+            morePage.scheduleList.get(1).click();
+        } else {
+            morePage.scheduleList.get(0).click();
+        }
+        //get into edit mode
+        if (platform.equals("ios")) {
+            morePage.scheduleList.get(1).click();
+        } else {
+            morePage.scheduleList.get(0).click();
+        }
+        //标题
+        String editScheTitle = morePage.titleLabelOnEditSchedulePage.getText();
+        verifyTranslate(editScheTitle, excelList, "edit schedule");
+        //取消
+        String editScheCancel = morePage.cancelBtnnEditSchedulePage.getText();
+        verifyTranslate(editScheCancel, excelList, "edit schedule");
+        //保存
+        String editScheSave = morePage.saveBtnnEditSchedulePage.getText();
+        verifyTranslate(editScheSave, excelList, "edit schedule");
+        //预约类型
+        String editScheType = morePage.scheduleTypeLabelnEditSchedulePage.getText();
+        verifyTranslate(editScheType, excelList, "edit schedule");
+        //自动清扫
+        String editScheAutoClean = morePage.autoCleanLabelnEditSchedulePage.getText();
+        verifyTranslate(editScheAutoClean, excelList, "edit schedule");
+        //时间设置
+        String editScheTimeSet = morePage.timeSettingLabelnEditSchedulePage.getText();
+        verifyTranslate(editScheTimeSet, excelList, "edit schedule");
+        //重复频率
+        String editScheFrequency = morePage.frequencyLabelnEditSchedulePage.getText();
+        verifyTranslate(editScheFrequency, excelList, "edit schedule");
+        //重复频率值-周日
+        String editScheFrequencyValue = morePage.frequencyValueLabelnEditSchedulePage.getText();
+        verifyTranslate(editScheFrequencyValue, excelList, "edit schedule");
+        //删除预约
+        String delSche = morePage.delScheBtnInEditSchedulePage.getText();
+        verifyTranslate(delSche, excelList, "edit schedule");
+        morePage.delScheBtnInEditSchedulePage.click();
+        Thread.sleep(5000);
+
+        //选择每周一,查看重复频率是否为周一
+        everyWeek.clear();
+        everyWeek.add("周一");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+
+        //选择每周二,查看重复频率是否为周二
+        everyWeek.clear();
+        everyWeek.add("周二");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+
+        //选择每周三,查看重复频率是否为周三
+        everyWeek.clear();
+        everyWeek.add("周三");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+
+        //选择每周四,查看重复频率是否为周四
+        everyWeek.clear();
+        everyWeek.add("周四");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+
+        //选择每周五,查看重复频率是否为周五
+        everyWeek.clear();
+        everyWeek.add("周五");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+
+        //选择每周六,查看重复频率是否为周六
+        everyWeek.clear();
+        everyWeek.add("周六");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+
+        //选择每周六和日,查看重复频率是否为周末
+        everyWeek.clear();
+        everyWeek.add("周日");
+        everyWeek.add("周六");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+        delSchedule(appiumDriver, platform);
+
+        //选择每周一到五,查看重复频率是否为工作日
+        everyWeek.clear();
+        everyWeek.add("周一");
+        everyWeek.add("周二");
+        everyWeek.add("周三");
+        everyWeek.add("周四");
+        everyWeek.add("周五");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+
+        //选择所有,查看重复频率是否每天
+        everyWeek.clear();
+        everyWeek.add("周日");
+        everyWeek.add("周一");
+        everyWeek.add("周二");
+        everyWeek.add("周三");
+        everyWeek.add("周四");
+        everyWeek.add("周五");
+        everyWeek.add("周六");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+        delSchedule(appiumDriver, platform);
+
+        //周日和周一
+        everyWeek.clear();
+        everyWeek.add("周日");
+        everyWeek.add("周一");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+        delSchedule(appiumDriver, platform);
+
+        //周二,周三和周四
+        everyWeek.clear();
+        everyWeek.add("周二");
+        everyWeek.add("周三");
+        everyWeek.add("周四");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+        delSchedule(appiumDriver, platform);
+
+        //周三,周四,周五和周六
+        everyWeek.clear();
+        everyWeek.add("周三");
+        everyWeek.add("周四");
+        everyWeek.add("周五");
+        everyWeek.add("周六");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+        delSchedule(appiumDriver, platform);
+
+        //周日,周一,周二,周三和周四
+        everyWeek.clear();
+        everyWeek.add("周日");
+        everyWeek.add("周一");
+        everyWeek.add("周二");
+        everyWeek.add("周三");
+        everyWeek.add("周四");
+        addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
+        delSchedule(appiumDriver, platform);
 
         //周一到周六
         everyWeek.clear();
@@ -754,6 +755,8 @@ public class TranslateSteps {
         morePage.backBtnOnCleanSchedulePage.click();
         Thread.sleep(2000);
         morePage.backBtnOnMorePage.click();
+        Thread.sleep(2000);
+        cleanPage.cleanPageBackBtn.click();
     }
 
     private void noDisturbPageTranslate(ArrayList<String> excelList, String platform) throws Exception {
@@ -964,16 +967,15 @@ public class TranslateSteps {
 
         boolean flag = false;
         for (String str : list) {
-            if (str.replaceAll("\\pP", "").trim().replace(" ", "").equals(appValue.replaceAll("\\pP", "").trim().replace(" ", ""))) {
-                System.out.println("pass+++++++++++++++++++++++++++++"+"expect:" + str.replaceAll("\\pP", "").trim().replace(" ", "")+"actual:" + appValue.replaceAll("\\pP", "").trim().replace(" ", ""));
+            if (str.replaceAll("\\pP", "").trim().replace(" ", "").equals(appValue.replaceAll("\\pP", "").trim().replace(" ", ""))||str.replaceAll("\\pP", "").trim().replace(" ", "").contains(appValue.replaceAll("\\pP", "").trim().replace(" ", ""))) {
+                System.out.println("Pass************"+"Expect value:" + str.replaceAll("\\pP", "").trim().replace(" ", "")+"Actual value:" + appValue.replaceAll("\\pP", "").trim().replace(" ", ""));
                 flag = true;
                 break;
             }
         }
         if (!flag) {
-            System.out.println("Fail++++++++++++++++++++++++++++++++++actual:" + appValue.replaceAll("\\pP", "").trim().replace(" ", ""));
+            Assert.fail("Fail************"+"Expected value is:" + list.toString().replaceAll("\\pP", "").trim().replace(" ", "")+"Actual value:" + appValue.replaceAll("\\pP", "").trim().replace(" ", ""));
         }
-
     }
 
     public void addSchedule(AppiumDriver driver, List<String> list) throws InterruptedException {
