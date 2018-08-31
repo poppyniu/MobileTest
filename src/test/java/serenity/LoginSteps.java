@@ -36,12 +36,12 @@ public class LoginSteps {
     @Step
     public void check_login_result(String platform) throws Exception {
         if (platform.equals("ios")) {
-            CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[1]"), 60, platform);
+            CommonPage.waitForVisible(appiumDriver,("//*[@name='DEEBOT 705']"),60,platform);
+            //CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[1]"), 60, platform);
         } else {
             CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/robot_name"), 60, platform);
             Thread.sleep(6000);
         }
-
         if(CommonPage.elementExist(dashboardPage.D700RobotName)){
             System.out.println("Login to app succeed, test pass!");
         }

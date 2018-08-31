@@ -14,17 +14,16 @@ Feature:Test translation on d700
     And Tear down
     Examples:
       | Platform | Country | Email            | Password       |
-      | android  | 美国      | 825794516@qq.com | zxw15259562596 |
-#      | ios      | 美国      | 825794516@qq.com | zxw15259562596 |
+#      | android  | 美国      | 825794516@qq.com | zxw15259562596 |
+      | ios      | 美国      | 825794516@qq.com | zxw15259562596 |
 
 
   @Translation1
   Scenario Outline: Test translation function on device d700 without reinstall app
     Given Set up testing environment on <Platform>
-    And Select language and check translation result on <Platform>
+    When Select language and check translation result on <Platform>
     And Tear down
     Examples:
       | Platform |
-#      | android  |
       | ios      |
 

@@ -23,8 +23,10 @@ public class GuidePage {
     @iOSFindBy(xpath="//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[3]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[3]")
     @AndroidFindBy(className="android.widget.LinearLayout")
     public MobileElement guidePageLayout;
+    @iOSFindBy(xpath="//poppytest")
     @AndroidFindBy(id="com.eco.global.app:id/tv_title")
     public MobileElement firmwareUpgrade;
+    @iOSFindBy(xpath="//poppytest")
     @AndroidFindBy(id="com.eco.global.app:id/tv_cancel")
     public MobileElement firmwareUpgradeCancelBtn;
 

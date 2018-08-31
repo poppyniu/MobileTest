@@ -17,7 +17,7 @@ public class SettingPage {
     @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[2]/XCUIElementTypeStaticText[1]")
     @AndroidFindBy(id="com.eco.global.app:id/iv_current_language")
     public MobileElement settingMultipleLanguage;
-    @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeNavigationBar[1]/XCUIElementTypeButton[1]")
+    @iOSFindBy(xpath = "//*[@name='global back black arrow']")
     @AndroidFindBy(id="com.eco.global.app:id/fl_left_container")
     public MobileElement settingBackBtn;
 

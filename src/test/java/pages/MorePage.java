@@ -391,19 +391,19 @@ public class MorePage {
     @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[1]")
     @AndroidFindBy(id = "com.eco.global.app:id/fw_update_checking")
     public MobileElement checkingInfoOnFirmwareVersionPage;
-    @iOSFindBy(xpath = "")
+    @iOSFindBy(xpath = "//poppytest")
     @AndroidFindBy(id = "com.eco.global.app:id/new_version_title")
     public MobileElement label1OnFirmwareVersionPage;
-    @iOSFindBy(xpath = "")
+    @iOSFindBy(xpath = "//poppytest")
     @AndroidFindBy(id = "com.eco.global.app:id/version_number")
     public MobileElement label2OnFirmwareVersionPage;
-    @iOSFindBy(xpath = "")
+    @iOSFindBy(xpath = "//poppytest")
     @AndroidFindBy(id = "com.eco.global.app:id/ota_new_version_desc")
     public MobileElement label3OnFirmwareVersionPage;
     @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[1]")
     @AndroidFindBy(id = "com.eco.global.app:id/update_status")
     public MobileElement latestVersionLableOnFirmwareVersionPage;
-    @iOSFindBy(xpath = "")
+    @iOSFindBy(xpath = "//poppytest")
     @AndroidFindBy(id = "com.eco.global.app:id/update_btn")
     public MobileElement upgradeBtnOnFirmwareVersionPage;
 

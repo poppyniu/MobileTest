@@ -41,8 +41,16 @@ public class TranslateSteps {
 
     @Step
     public void doTranslation(String platform) throws Exception {
+        Thread.sleep(60000);
+        System.out.println("22222222222");
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), DashboardPage.class);
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), SettingPage.class);
+        if (platform.equals("ios")) {
+            CommonPage.waitForVisible(appiumDriver, ("//*[@name='DEEBOT 705']"), 60, platform);
+        } else {
+            CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/robot_name"), 60, platform);
+            Thread.sleep(6000);
+        }
         //get excel row content by column
         InputStream inputStream = new FileInputStream("file/d700Translation.xlsx");
         workBook = new XSSFWorkbook(inputStream);
@@ -115,12 +123,12 @@ public class TranslateSteps {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), DashboardPage.class);
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), CleanPage.class);
         if (platform.equals("ios")) {
-            CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[2]"), 60, platform);
+            CommonPage.waitForVisible(appiumDriver, ("//*[@name='DEEBOT 705']"), 60, platform);
         } else {
             CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/robot_image"), 3, platform);
             Thread.sleep(5000);
         }
-        dashboardPage.robotImageBtn.click();
+        dashboardPage.D700RobotName.click();
         Thread.sleep(8000);
         //first time login need to translate guide page
         if (col < 1) {
@@ -185,23 +193,23 @@ public class TranslateSteps {
         verifyTranslate(debootInfoStr, excelList, "more");
         verifyTranslate(lookForDebootStr, excelList, "more");
         //1:clean power page translate
-        //cleanPowerPageTranslate(excelList, platform);
+        cleanPowerPageTranslate(excelList, platform);
         //2:No disturb mode page translate
-        //noDisturbPageTranslate(excelList, platform);
+        noDisturbPageTranslate(excelList, platform);
         //3:clean schedule translate
         cleanSchedulePageTranslate(excelList, platform);
         //4:clean log page translate
-        //cleanLogPageTranslate(excelList, platform);
+        cleanLogPageTranslate(excelList, platform);
         //5:accessories time page translate
-        //accessoriesTimePageTranslate(excelList, platform);
+        accessoriesTimePageTranslate(excelList, platform);
         //6:deboot voice page translate
-        //debootVoicePageTranslate(excelList, platform);
+        debootVoicePageTranslate(excelList, platform);
         //7:rename page translate
-        //renamePageTranslate(excelList, platform);
+        renamePageTranslate(excelList, platform);
         //8:use help page translate
-        //useHelpPageTranslate(excelList, platform);
+        useHelpPageTranslate(excelList, platform);
         //9:deboot info page translate
-        //debootInfoPageTranslate(excelList, platform);
+        debootInfoPageTranslate(excelList, platform);
 
     }
 
@@ -737,7 +745,7 @@ public class TranslateSteps {
         everyWeek.add("周六");
         addScheduleAndValidation(appiumDriver, everyWeek, excelList, platform);
         delSchedule(appiumDriver, platform);
-        addSchedule(appiumDriver, 10,platform);
+        addSchedule(appiumDriver, 10, platform);
         //已达最大预约次数
         Thread.sleep(3000);
         morePage.addScheduleBtnOnCleanSchedulePage.click();
@@ -850,18 +858,18 @@ public class TranslateSteps {
             Thread.sleep(6000);
         }
         //translate the first guide page
-        //String guidePageStr1 = guidePage.guidePageLayout.getText();
-        //verifyTranslate(guidePageStr1,excelList,"guide");
+        String guidePageStr1 = guidePage.guidePageLayout.getText();
+        verifyTranslate(guidePageStr1, excelList, "guide");
         cleanPage.autoClean.click();
         Thread.sleep(5000);
         //translate the second guide page
-        //String guidePageStr2 = guidePage.guidePageElement.getText();
-        //verifyTranslate(guidePageStr2,excelList,"guide");
+        String guidePageStr2 = guidePage.guidePageElement.getText();
+        verifyTranslate(guidePageStr2, excelList, "guide");
         cleanPage.autoClean.click();
         Thread.sleep(5000);
         //translate the third guide page
-        //String guidePageStr3 = guidePage.guidePageElement1.getText();
-        //verifyTranslate(guidePageStr3,excelList,"guide");
+        String guidePageStr3 = guidePage.guidePageElement1.getText();
+        verifyTranslate(guidePageStr3, excelList, "guide");
         guidePage.startExperienceBtn.click();
         Thread.sleep(2000);
     }
@@ -892,6 +900,7 @@ public class TranslateSteps {
                 while (flag) {
                     if (appiumDriver.findElementByXPath("//XCUIElementTypeStaticText[@name='" + language + "']").isDisplayed()) {
                         appiumDriver.findElementByXPath("//XCUIElementTypeStaticText[@name='" + language + "']").click();
+                        languagePage.languagePageSaveBtn.click();
                         // waiting to be done on ios...
                         flag = false;
                     } else {
@@ -919,6 +928,7 @@ public class TranslateSteps {
         settingPage.settingMultipleLanguage.click();
         Thread.sleep(3000);
         setLanguage(appiumDriver, tmpLanguage, platform);
+        Thread.sleep(3000);
         settingPage.settingBackBtn.click();
     }
 
@@ -945,7 +955,7 @@ public class TranslateSteps {
         String weekStr = morePage.repeatTimesOnAddNewSchedulePage.getText().trim();
         while (i < weekStr.replaceAll(" ", "\\|").split("\\|").length) {
             //verifyTranslate(weekStr.replaceAll(" ", "\\|").split("\\|")[i], list, "add schedule");
-            verifyUI(weekStr.replaceAll(" ","\\|").split("\\|")[i],list);
+            verifyUI(weekStr.replaceAll(" ", "\\|").split("\\|")[i], list);
             i++;
         }
         morePage.saveBtnOnAddNewSchedulePage.click();
@@ -967,14 +977,14 @@ public class TranslateSteps {
 
         boolean flag = false;
         for (String str : list) {
-            if (str.replaceAll("\\pP", "").trim().replace(" ", "").equals(appValue.replaceAll("\\pP", "").trim().replace(" ", ""))||str.replaceAll("\\pP", "").trim().replace(" ", "").contains(appValue.replaceAll("\\pP", "").trim().replace(" ", ""))) {
-                System.out.println("Pass************"+"Expect value:" + str.replaceAll("\\pP", "").trim().replace(" ", "")+"Actual value:" + appValue.replaceAll("\\pP", "").trim().replace(" ", ""));
+            if (str.replaceAll("\\pP", "").trim().replace(" ", "").equals(appValue.replaceAll("\\pP", "").trim().replace(" ", "")) || str.replaceAll("\\pP", "").trim().replace(" ", "").contains(appValue.replaceAll("\\pP", "").trim().replace(" ", ""))) {
+                System.out.println("Pass************" + "Expect value:" + str.replaceAll("\\pP", "").trim().replace(" ", "") + "Actual value:" + appValue.replaceAll("\\pP", "").trim().replace(" ", ""));
                 flag = true;
                 break;
             }
         }
         if (!flag) {
-            Assert.fail("Fail************"+"Expected value is:" + list.toString().replaceAll("\\pP", "").trim().replace(" ", "")+"Actual value:" + appValue.replaceAll("\\pP", "").trim().replace(" ", ""));
+            Assert.fail("Fail************" + "Expected value is:" + list.toString().replaceAll("\\pP", "").trim().replace(" ", "") + "Actual value:" + appValue.replaceAll("\\pP", "").trim().replace(" ", ""));
         }
     }
 
@@ -1037,7 +1047,7 @@ public class TranslateSteps {
     }
 
     //循环添加预约
-    public void addSchedule(AppiumDriver driver, int num,String platform) throws InterruptedException {
+    public void addSchedule(AppiumDriver driver, int num, String platform) throws InterruptedException {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
         for (int i = 0; i < num; i++) {
             if (platform.equals("ios")) {

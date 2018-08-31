@@ -34,21 +34,23 @@ public class AreaSteps {
                 ((AndroidDriver) appiumDriver).findElementByAndroidUIAutomator(countryStr).click();
             }
         } else {
-            CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[7]/XCUIElementTypeOther[3]/XCUIElementTypeAlert[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]"), 60, platform);
-            loginPage.notAllowNoticeBtn.click();
+            //CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[6]/XCUIElementTypeOther[2]/XCUIElementTypeAlert[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]"), 60, platform);
+            //loginPage.notAllowNoticeBtn.click();
             Thread.sleep(2000);
             loginPage.countryInLoginPage.click();
             Thread.sleep(20000);
-            boolean countryYouWant = true;
-            while (countryYouWant) {
-                if (appiumDriver.findElementByXPath("//XCUIElementTypeStaticText[@name='" + country + "']").isDisplayed()) {
-                    appiumDriver.findElementByXPath("//XCUIElementTypeStaticText[@name='" + country + "']").click();
-                    countryYouWant = false;
-                } else {
-                    CommonPage.swipeUp(appiumDriver);
-                }
-            }
+//            boolean countryYouWant = true;
+//            while (countryYouWant) {
+//                if (appiumDriver.findElementByXPath("//XCUIElementTypeStaticText[@name='" + country + "']").isDisplayed()) {
+//                    appiumDriver.findElementByXPath("//XCUIElementTypeStaticText[@name='" + country + "']").click();
+//                    countryYouWant = false;
+//                } else {
+//                    CommonPage.swipeToDirection(appiumDriver, "up");
+//                }
+//            }
+//
+//        }
+//        areaPage.saveBtnInAreaPage.click();
         }
-        areaPage.saveBtnInAreaPage.click();
     }
 }

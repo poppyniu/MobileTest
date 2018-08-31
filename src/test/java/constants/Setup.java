@@ -22,12 +22,13 @@ public class Setup {
             capabilities.setCapability("platformVersion", "11.2.6");
             capabilities.setCapability("bundleId", "com.eco.global.app");
             capabilities.setCapability("udid", "4e3b8c6a88f5d84f6a512ebc666876c3ac5d6358");
-            //capabilities.setCapability("udid", "b3db9b489b6c4ee3bd84633fbfad4a110db63da0");
+            //capabilities.setCapability("udid", "741f52d3db805f3ea97a93781ece67b311c8c324");
             capabilities.setCapability("app", "/Users/ecovacsqa/Desktop/GlobalAppTranslate/file/GlobalApp.ipa");
             capabilities.setCapability("automationName", "xcuitest");
             capabilities.setCapability("autoAcceptAlerts", "True");
+            capabilities.setCapability("noSign", "True");
             capabilities.setCapability("newCommandTimeout", 300);
-            capabilities.setCapability("noReset", "False");
+            capabilities.setCapability("noReset", "True");
             appiumDriver = new IOSDriver(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
             return appiumDriver;
         } else {
@@ -48,7 +49,7 @@ public class Setup {
             capabilities.setCapability("noSign", "True");
             capabilities.setCapability("newCommandTimeout", 600);
             //每次运行重新安装
-            capabilities.setCapability("noReset", "False");
+            capabilities.setCapability("noReset", "True");
             appiumDriver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
             return appiumDriver;
         }
