@@ -41,8 +41,6 @@ public class TranslateSteps {
 
     @Step
     public void doTranslation(String platform) throws Exception {
-        Thread.sleep(60000);
-        System.out.println("22222222222");
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), DashboardPage.class);
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), SettingPage.class);
         if (platform.equals("ios")) {
@@ -133,7 +131,7 @@ public class TranslateSteps {
         //first time login need to translate guide page
         if (col < 1) {
             //cancelUpgradeFirmware(platform);
-            guidePageTranslate(excelList, platform);
+            //guidePageTranslate(excelList, platform);
         }
         //wait clean page loading
         if (platform.equals("ios")) {
@@ -143,23 +141,38 @@ public class TranslateSteps {
             Thread.sleep(5000);
         }
         //auto clean page translate
+        String cleanBtnStr = "";
         String autoCleanStr = cleanPage.autoClean.getText();
         String cleanWholeHouseStr = cleanPage.cleanWholeHouse.getText();
-        String cleanBtnStr = cleanPage.autoButton.getText();
+        if (platform.equals("ios")) {
+            cleanBtnStr = cleanPage.autoButton.getAttribute("name");
+        } else {
+            cleanBtnStr = cleanPage.autoButton.getText();
+        }
         verifyTranslate(autoCleanStr, excelList, "clean");
         verifyTranslate(cleanWholeHouseStr, excelList, "clean");
         verifyTranslate(cleanBtnStr, excelList, "clean");
         //spot clean page translate
+        String spotCleanBtnStr="";
         cleanPage.cleanPageSpotBtn.click();
-        String spotCleanBtnStr = cleanPage.cleanPageSpotBtn.getText();
+        if (platform.equals("ios")) {
+            spotCleanBtnStr = cleanPage.cleanPageSpotBtn.getAttribute("name");
+        } else {
+            spotCleanBtnStr = cleanPage.cleanPageSpotBtn.getText();
+        }
         String spotCleanStr = cleanPage.spotCleanPanel.getText();
         String spotCleanStr1 = cleanPage.localCleanPanel.getText();
         verifyTranslate(spotCleanBtnStr, excelList, "clean");
         verifyTranslate(spotCleanStr, excelList, "clean");
         verifyTranslate(spotCleanStr1, excelList, "clean");
         //edge clean page translate
+        String edgeCleanBtnStr="";
         cleanPage.cleanPageEdgeBtn.click();
-        String edgeCleanBtnStr = cleanPage.cleanPageEdgeBtn.getText();
+        if (platform.equals("ios")) {
+            edgeCleanBtnStr = cleanPage.cleanPageEdgeBtn.getAttribute("name");
+        } else {
+            edgeCleanBtnStr = cleanPage.cleanPageEdgeBtn.getText();
+        }
         String edgeCleanStr = cleanPage.edgeCleanPanel.getText();
         String edgeCleanStr1 = cleanPage.edgeCleanPanel1.getText();
         verifyTranslate(edgeCleanBtnStr, excelList, "clean");
@@ -852,7 +865,7 @@ public class TranslateSteps {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), GuidePage.class);
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), CleanPage.class);
         if (platform.equals("ios")) {
-            CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[1]"), 60, platform);
+            CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeScrollView[1]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1]"), 60, platform);
         } else {
             CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/tv_mode_name"), 2, platform);
             Thread.sleep(6000);
