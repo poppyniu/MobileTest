@@ -3,11 +3,9 @@ package pages;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
 import junit.framework.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Point;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -162,7 +160,7 @@ public class CommonPage {
         // 获取控件开始位置的坐标轴
         Point start = xpath.getLocation();
         TouchAction ta = new TouchAction(driver);
-        Duration duration=Duration.ofSeconds(1);
+        Duration duration = Duration.ofSeconds(1);
         int startX = start.x;
         int startY = start.y;
 
@@ -218,5 +216,68 @@ public class CommonPage {
         //ta.press(centerX, centerY).moveTo(100 - centerX, 0).release().perform();
         ta.press(centerX, centerY).moveTo(200 - centerX, 0).release().perform();
 
+    }
+
+    public static void toSelectArea(AppiumDriver driver, String area, String platform) {
+        MobileElement textViewCountry = null;
+        LoginPage pb = new LoginPage(driver);
+        pb.countryInLoginPage.click();
+        if (platform.equals("ios")) {
+            boolean countryYouWant = true;
+            while (countryYouWant) {
+                if (driver.findElementByXPath("//XCUIElementTypeStaticText[@name='" + area + "']").isDisplayed()) {
+                    driver.findElementByXPath("//XCUIElementTypeStaticText[@name='" + area + "']").click();
+                    countryYouWant = false;
+                } else {
+                    swipeToUp(driver);
+                }
+            }
+
+        } else {
+            String str = "new UiScrollable(new UiSelector().scrollable(true).instance(0))." + "scrollIntoView(new UiSelector().textContains(" + "\"" + area + "\"" + ").instance(0))";
+            textViewCountry = (MobileElement) ((AndroidDriver) driver).findElementByAndroidUIAutomator(str);
+            textViewCountry.click();
+
+        }
+        pb.saveBtnInSelectAreaPage.click();
+    }
+
+    public static void swipeToUp(AppiumDriver driver) {
+        int width = driver.manage().window().getSize().width;
+        int height = driver.manage().window().getSize().height;
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        Map<String, Object> params = new HashMap<>();
+//        params.put("direction", direction);
+        params.put("fromX", width / 2);
+        params.put("fromY", height * 3 / 4);
+        params.put("toX", width / 2);
+        params.put("toY", height / 4);
+        params.put("duration", 0.5);
+        try {
+            js.executeScript("mobile: dragFromToForDuration", params);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+
+    public static void clickDone(AppiumDriver driver) {
+        LoginPage loginPage = new LoginPage(driver);
+        try {
+            boolean flag = true;
+            while (flag) {
+                if (loginPage.doneBtnInKeyboard != null && loginPage.doneBtnInKeyboard.isDisplayed()) {
+                    loginPage.doneBtnInKeyboard.click();
+                } else {
+                    flag = false;
+                }
+                if (loginPage.wanChengBtnInKeyboard != null && loginPage.wanChengBtnInKeyboard.isDisplayed()) {
+                    loginPage.wanChengBtnInKeyboard.click();
+                } else {
+                    flag = false;
+                }
+            }
+        } catch (NoSuchElementException e) {
+            e.getMessage();
+        }
     }
 }

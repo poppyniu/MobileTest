@@ -12,8 +12,16 @@ Feature:Test login function on global app
     Then Check login succeed on <Platform>
     Examples:
       | Platform | Country | Email            | Password       |
-      | android  | 美国 | 825794516@qq.com | zxw15259562596 |
+      | android  | 美国      | 825794516@qq.com | zxw15259562596 |
 
+
+  @RegisterLogin
+  Scenario Outline: Test register,login and modify password function on different countries
+    Given Set up testing environment on <Platform>
+    And Register and login and modify password on <Platform>
+    Examples:
+      | Platform |
+      | android  |
 
 
 

@@ -22,4 +22,9 @@ public class LoginStepDefinitions {
         loginSteps.check_login_result(platform);
     }
 
+    @And("^Register and login and modify password on (.*)$")
+    public void register_and_login_and_modify_password_on_different_countries(String platform) throws Throwable {
+        loginSteps.multiple_country_register_login(platform);
+    }
+
 }
