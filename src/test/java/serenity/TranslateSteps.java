@@ -40,75 +40,56 @@ public class TranslateSteps {
     List<String> everyWeek;
 
     @Step
-    public void doTranslation(String platform) throws Exception {
+    public void doTranslation(String language, String platform) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), DashboardPage.class);
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), SettingPage.class);
         if (platform.equals("ios")) {
-            CommonPage.waitForVisible(appiumDriver, ("//*[@name='DEEBOT 705']"), 60, platform);
+            CommonPage.waitForVisible(appiumDriver, ("//*[@name='DEEBOT 711']"), 60, platform);
         } else {
             CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/robot_name"), 60, platform);
             Thread.sleep(6000);
         }
-        //get excel row content by column
-        InputStream inputStream = new FileInputStream("file/d700Translation.xlsx");
-        workBook = new XSSFWorkbook(inputStream);
-        sheet = workBook.getSheetAt(0);
-        row = sheet.getRow(0);
-        int rowNum = sheet.getLastRowNum();
-        int colNum = row.getPhysicalNumberOfCells();
-        for (int col = 0; col < colNum; col++) {
-            ArrayList<String> excelList = new ArrayList<String>();
-            for (int rowCount = 0; rowCount <= rowNum; rowCount++) {
-                XSSFRow xssfRow = (XSSFRow) sheet.getRow(rowCount);
-                if (xssfRow == null) {//略过空行
-                    continue;
-                }
-                XSSFCell eRow = xssfRow.getCell(col);
-                excelList.add(eRow.toString());
-            }
-            //System.out.println("**********This is column: " + col);
-            //choose testing language from excel
-            String tmpLanguage = excelList.get(0).trim();
-            System.out.println("**********Begin translate language : " + tmpLanguage);
-            //System.out.println("********** " + excelList.get(2).toString());
-            if (tmpLanguage.equals("zh-CN中文")) {
-                tmpLanguage = "简体中文";
-            } else if (tmpLanguage.equals("en英文")) {
-                tmpLanguage = "English";
-            } else if (tmpLanguage.equals("de-DE德文")) {
-                tmpLanguage = "Deutsch";
-            } else if (tmpLanguage.equals("fr-FR法文")) {
-                tmpLanguage = "Français";
-            } else if (tmpLanguage.equals("he-IL希伯来文")) {
-                tmpLanguage = "עברית";
-            } else if (tmpLanguage.equals("it-IT意大利文")) {
-                tmpLanguage = "Italiano";
-            } else if (tmpLanguage.equals("ja-JP日文")) {
-                tmpLanguage = "日本語";
-            } else if (tmpLanguage.equals("ko-KR韩文")) {
-                tmpLanguage = "한국어";
-            } else if (tmpLanguage.equals("ms-MY马来文")) {
-                tmpLanguage = "Bahasa Melayu";
-            } else if (tmpLanguage.equals("pt-PT葡萄牙文")) {
-                tmpLanguage = "Português";
-            } else if (tmpLanguage.equals("ru-RU俄文")) {
-                tmpLanguage = "Русский";
-            } else if (tmpLanguage.equals("th-TH泰文")) {
-                tmpLanguage = "ไทย";
-            } else if (tmpLanguage.equals("zh-TW繁体中文")) {
-                tmpLanguage = "繁體中文";
-            } else if (tmpLanguage.equals("es-ES西班牙文")) {
-                tmpLanguage = "Español";
-            }
-            //choose language and go back to dashboard page
-            chooseLanguage(tmpLanguage, platform);
-            //check dashboard page translate
-            //dashboardPageTranslate(excelList);
-            // check clean page translate
-            cleanPageTranslate(excelList, col, platform);
-            //check more page translate
-            morePageTranslate(excelList, platform);
+        //get excel row content by column name
+        ArrayList<String> excelList = getExcelRowItemByColumnName(language);
+        String tmpLanguage = "";
+        System.out.println("********** Begin translate language : " + language);
+        if (language.equals("zh-CN中文")) {
+            tmpLanguage = "简体中文";
+        } else if (language.equals("en英文")) {
+            tmpLanguage = "English";
+        } else if (language.equals("de-DE德文")) {
+            tmpLanguage = "Deutsch";
+        } else if (language.equals("fr-FR法文")) {
+            tmpLanguage = "Français";
+        } else if (language.equals("he-IL希伯来文")) {
+            tmpLanguage = "עברית";
+        } else if (language.equals("it-IT意大利文")) {
+            tmpLanguage = "Italiano";
+        } else if (language.equals("ja-JP日文")) {
+            tmpLanguage = "日本語";
+        } else if (language.equals("ko-KR韩文")) {
+            tmpLanguage = "한국어";
+        } else if (language.equals("ms-MY马来文")) {
+            tmpLanguage = "Bahasa Melayu";
+        } else if (language.equals("pt-PT葡萄牙文")) {
+            tmpLanguage = "Português";
+        } else if (language.equals("ru-RU俄文")) {
+            tmpLanguage = "Русский";
+        } else if (language.equals("th-TH泰文")) {
+            tmpLanguage = "ไทย";
+        } else if (language.equals("zh-TW繁体中文")) {
+            tmpLanguage = "繁體中文";
+        } else if (language.equals("es-ES西班牙文")) {
+            tmpLanguage = "Español";
         }
+        //choose language and go back to dashboard page
+        chooseLanguage(tmpLanguage, platform);
+        //check dashboard page translate
+        //dashboardPageTranslate(excelList);
+        // check clean page translate
+        cleanPageTranslate(excelList, platform);
+        //check more page translate
+        morePageTranslate(excelList, platform);
     }
 
     private void dashboardPageTranslate(ArrayList<String> excelList) throws InterruptedException {
@@ -117,11 +98,60 @@ public class TranslateSteps {
         verifyTranslate(robotStatusStr, excelList, "dashboard");
     }
 
-    private void cleanPageTranslate(ArrayList<String> excelList, int col, String platform) throws Exception {
+    private ArrayList<String> getExcelRowItemByColumnName(String language) throws Exception {
+        InputStream inputStream = new FileInputStream("file/d700Translation.xlsx");
+        ArrayList<String> excelList = new ArrayList<String>();
+        workBook = new XSSFWorkbook(inputStream);
+        sheet = workBook.getSheetAt(0);
+        row = sheet.getRow(0);
+        int rowNum = sheet.getLastRowNum();
+        int colNum = row.getPhysicalNumberOfCells();
+        int col = 0;
+        if (language.equals("zh-CN中文")) {
+            col = 0;
+        } else if (language.equals("en英文")) {
+            col = 1;
+        } else if (language.equals("de-DE德文")) {
+            col = 2;
+        } else if (language.equals("fr-FR法文")) {
+            col = 3;
+        } else if (language.equals("he-IL希伯来文")) {
+            col = 4;
+        } else if (language.equals("it-IT意大利文")) {
+            col = 5;
+        } else if (language.equals("ja-JP日文")) {
+            col = 6;
+        } else if (language.equals("ko-KR韩文")) {
+            col = 7;
+        } else if (language.equals("ms-MY马来文")) {
+            col = 8;
+        } else if (language.equals("pt-PT葡萄牙文")) {
+            col = 9;
+        } else if (language.equals("ru-RU俄文")) {
+            col = 10;
+        } else if (language.equals("th-TH泰文")) {
+            col = 11;
+        } else if (language.equals("zh-TW繁体中文")) {
+            col = 12;
+        } else if (language.equals("es-ES西班牙文")) {
+            col = 13;
+        }
+        for (int rowCount = 0; rowCount <= rowNum; rowCount++) {
+            XSSFRow xssfRow = (XSSFRow) sheet.getRow(rowCount);
+            if (xssfRow == null) {
+                continue;
+            }
+            XSSFCell eRow = xssfRow.getCell(col);
+            excelList.add(eRow.toString());
+        }
+        return excelList;
+    }
+
+    private void cleanPageTranslate(ArrayList<String> excelList, String platform) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), DashboardPage.class);
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), CleanPage.class);
         if (platform.equals("ios")) {
-            CommonPage.waitForVisible(appiumDriver, ("//*[@name='DEEBOT 705']"), 60, platform);
+            CommonPage.waitForVisible(appiumDriver, ("//*[@name='DEEBOT 711']"), 60, platform);
         } else {
             CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/robot_image"), 3, platform);
             Thread.sleep(5000);
@@ -129,10 +159,8 @@ public class TranslateSteps {
         dashboardPage.D700RobotName.click();
         Thread.sleep(8000);
         //first time login need to translate guide page
-        if (col < 1) {
-            //cancelUpgradeFirmware(platform);
-            //guidePageTranslate(excelList, platform);
-        }
+        //cancelUpgradeFirmware(platform);
+        guidePageTranslate(excelList, platform);
         //wait clean page loading
         if (platform.equals("ios")) {
             CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeScrollView[1]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1]"), 60, platform);
@@ -153,7 +181,7 @@ public class TranslateSteps {
         verifyTranslate(cleanWholeHouseStr, excelList, "clean");
         verifyTranslate(cleanBtnStr, excelList, "clean");
         //spot clean page translate
-        String spotCleanBtnStr="";
+        String spotCleanBtnStr = "";
         cleanPage.cleanPageSpotBtn.click();
         if (platform.equals("ios")) {
             spotCleanBtnStr = cleanPage.cleanPageSpotBtn.getAttribute("name");
@@ -166,7 +194,7 @@ public class TranslateSteps {
         verifyTranslate(spotCleanStr, excelList, "clean");
         verifyTranslate(spotCleanStr1, excelList, "clean");
         //edge clean page translate
-        String edgeCleanBtnStr="";
+        String edgeCleanBtnStr = "";
         cleanPage.cleanPageEdgeBtn.click();
         if (platform.equals("ios")) {
             edgeCleanBtnStr = cleanPage.cleanPageEdgeBtn.getAttribute("name");

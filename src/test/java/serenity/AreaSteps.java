@@ -45,12 +45,12 @@ public class AreaSteps {
 //                    appiumDriver.findElementByXPath("//XCUIElementTypeStaticText[@name='" + country + "']").click();
 //                    countryYouWant = false;
 //                } else {
-//                    CommonPage.swipeToDirection(appiumDriver, "up");
+                    CommonPage.swipeToDirection(appiumDriver, "up");
 //                }
 //            }
 //
 //        }
-//        areaPage.saveBtnInAreaPage.click();
         }
+        areaPage.saveBtnInAreaPage.click();
     }
 }
