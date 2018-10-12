@@ -40,7 +40,7 @@ public class TranslateSteps {
     List<String> everyWeek;
 
     @Step
-    public void doTranslation(String language, String platform) throws Exception {
+    public void doTranslation(String language, String platform, String deebotType) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), DashboardPage.class);
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), SettingPage.class);
         if (platform.equals("ios")) {
@@ -87,9 +87,9 @@ public class TranslateSteps {
         //check dashboard page translate
         //dashboardPageTranslate(excelList);
         // check clean page translate
-        cleanPageTranslate(excelList, platform);
+        cleanPageTranslate(excelList, platform, deebotType);
         //check more page translate
-        morePageTranslate(excelList, platform);
+        morePageTranslate(excelList, platform, deebotType);
     }
 
     private void dashboardPageTranslate(ArrayList<String> excelList) throws InterruptedException {
@@ -147,7 +147,7 @@ public class TranslateSteps {
         return excelList;
     }
 
-    private void cleanPageTranslate(ArrayList<String> excelList, String platform) throws Exception {
+    private void cleanPageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), DashboardPage.class);
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), CleanPage.class);
         if (platform.equals("ios")) {
@@ -160,104 +160,284 @@ public class TranslateSteps {
         Thread.sleep(8000);
         //first time login need to translate guide page
         //cancelUpgradeFirmware(platform);
-        guidePageTranslate(excelList, platform);
-        //wait clean page loading
-        if (platform.equals("ios")) {
-            CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeScrollView[1]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1]"), 60, platform);
-        } else {
-            CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/tv_mode_name"), 20, platform);
-            Thread.sleep(5000);
+        guidePageTranslate(excelList, platform, deebotType);
+        if (deebotType.equals("d700")) {
+            //wait clean page loading
+            if (platform.equals("ios")) {
+                CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeScrollView[1]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1]"), 60, platform);
+            } else {
+                CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/tv_mode_name"), 20, platform);
+                Thread.sleep(5000);
+            }
+            //auto clean page translate
+            String cleanBtnStr = "";
+            String autoCleanStr = cleanPage.autoClean.getText();
+            String cleanWholeHouseStr = cleanPage.cleanWholeHouse.getText();
+            if (platform.equals("ios")) {
+                cleanBtnStr = cleanPage.autoButton.getAttribute("name");
+            } else {
+                cleanBtnStr = cleanPage.autoButton.getText();
+            }
+            verifyTranslate(autoCleanStr, excelList, "clean");
+            verifyTranslate(cleanWholeHouseStr, excelList, "clean");
+            verifyTranslate(cleanBtnStr, excelList, "clean");
+            //spot clean page translate
+            String spotCleanBtnStr = "";
+            cleanPage.cleanPageSpotBtn.click();
+            if (platform.equals("ios")) {
+                spotCleanBtnStr = cleanPage.cleanPageSpotBtn.getAttribute("name");
+            } else {
+                spotCleanBtnStr = cleanPage.cleanPageSpotBtn.getText();
+            }
+            String spotCleanStr = cleanPage.spotCleanPanel.getText();
+            String spotCleanStr1 = cleanPage.localCleanPanel.getText();
+            verifyTranslate(spotCleanBtnStr, excelList, "clean");
+            verifyTranslate(spotCleanStr, excelList, "clean");
+            verifyTranslate(spotCleanStr1, excelList, "clean");
+            //edge clean page translate
+            String edgeCleanBtnStr = "";
+            cleanPage.cleanPageEdgeBtn.click();
+            if (platform.equals("ios")) {
+                edgeCleanBtnStr = cleanPage.cleanPageEdgeBtn.getAttribute("name");
+            } else {
+                edgeCleanBtnStr = cleanPage.cleanPageEdgeBtn.getText();
+            }
+            String edgeCleanStr = cleanPage.edgeCleanPanel.getText();
+            String edgeCleanStr1 = cleanPage.edgeCleanPanel1.getText();
+            verifyTranslate(edgeCleanBtnStr, excelList, "clean");
+            verifyTranslate(edgeCleanStr, excelList, "clean");
+            verifyTranslate(edgeCleanStr1, excelList, "clean");
+        } else if (deebotType.equals("dr930")) {
+            //wait clean page loading
+            if (platform.equals("ios")) {
+                CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeScrollView[1]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1]"), 60, platform);
+            } else {
+                CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/tv_mode_name"), 20, platform);
+                Thread.sleep(5000);
+            }
+            String cleanPageStr1 = cleanPage.oneBtnCleanFor930.getText();
+            String cleanPageStr2 = cleanPage.cleanWholeHouseFor930.getText();
+            String cleanPageStr3 = cleanPage.buildTipFor930.getText();
+            verifyTranslate(cleanPageStr1, excelList, "930 clean");
+            verifyTranslate(cleanPageStr2, excelList, "930 clean");
+            verifyTranslate(cleanPageStr3, excelList, "930 clean");
         }
-        //auto clean page translate
-        String cleanBtnStr = "";
-        String autoCleanStr = cleanPage.autoClean.getText();
-        String cleanWholeHouseStr = cleanPage.cleanWholeHouse.getText();
-        if (platform.equals("ios")) {
-            cleanBtnStr = cleanPage.autoButton.getAttribute("name");
-        } else {
-            cleanBtnStr = cleanPage.autoButton.getText();
-        }
-        verifyTranslate(autoCleanStr, excelList, "clean");
-        verifyTranslate(cleanWholeHouseStr, excelList, "clean");
-        verifyTranslate(cleanBtnStr, excelList, "clean");
-        //spot clean page translate
-        String spotCleanBtnStr = "";
-        cleanPage.cleanPageSpotBtn.click();
-        if (platform.equals("ios")) {
-            spotCleanBtnStr = cleanPage.cleanPageSpotBtn.getAttribute("name");
-        } else {
-            spotCleanBtnStr = cleanPage.cleanPageSpotBtn.getText();
-        }
-        String spotCleanStr = cleanPage.spotCleanPanel.getText();
-        String spotCleanStr1 = cleanPage.localCleanPanel.getText();
-        verifyTranslate(spotCleanBtnStr, excelList, "clean");
-        verifyTranslate(spotCleanStr, excelList, "clean");
-        verifyTranslate(spotCleanStr1, excelList, "clean");
-        //edge clean page translate
-        String edgeCleanBtnStr = "";
-        cleanPage.cleanPageEdgeBtn.click();
-        if (platform.equals("ios")) {
-            edgeCleanBtnStr = cleanPage.cleanPageEdgeBtn.getAttribute("name");
-        } else {
-            edgeCleanBtnStr = cleanPage.cleanPageEdgeBtn.getText();
-        }
-        String edgeCleanStr = cleanPage.edgeCleanPanel.getText();
-        String edgeCleanStr1 = cleanPage.edgeCleanPanel1.getText();
-        verifyTranslate(edgeCleanBtnStr, excelList, "clean");
-        verifyTranslate(edgeCleanStr, excelList, "clean");
-        verifyTranslate(edgeCleanStr1, excelList, "clean");
-
     }
 
-    private void morePageTranslate(ArrayList<String> excelList, String platform) throws Exception {
+    private void morePageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), CleanPage.class);
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
         cleanPage.cleanPageMoreBtn.click();
         Thread.sleep(6000);
-        String cleanPowerStr = morePage.cleanPower.getText();
-        String noDisturbModeStr = morePage.noDisturbMode.getText();
-        String cleanscheduleStr = morePage.cleanSchedule.getText();
-        String cleanLogStr = morePage.cleanlog.getText();
-        String accessoriesTimeStr = morePage.accessoriesTime.getText();
-        String debootVoiceStr = morePage.debootVoice.getText();
-        String renameStr = morePage.rename.getText();
-        String useHelpStr = morePage.useHelp.getText();
-        String debootInfoStr = morePage.debootInfo.getText();
-        String lookForDebootStr = morePage.lookForDeboot.getText();
-        verifyTranslate(cleanPowerStr, excelList, "more");
-        verifyTranslate(noDisturbModeStr, excelList, "more");
-        verifyTranslate(cleanscheduleStr, excelList, "more");
-        verifyTranslate(cleanLogStr, excelList, "more");
-        verifyTranslate(accessoriesTimeStr, excelList, "more");
-        verifyTranslate(debootVoiceStr, excelList, "more");
-        verifyTranslate(renameStr, excelList, "more");
-        verifyTranslate(useHelpStr, excelList, "more");
-        verifyTranslate(debootInfoStr, excelList, "more");
-        verifyTranslate(lookForDebootStr, excelList, "more");
-        //1:clean power page translate
-        cleanPowerPageTranslate(excelList, platform);
-        //2:No disturb mode page translate
-        noDisturbPageTranslate(excelList, platform);
-        //3:clean schedule translate
-        //cleanSchedulePageTranslate(excelList, platform);
-        //4:clean log page translate
-        cleanLogPageTranslate(excelList, platform);
-        //5:accessories time page translate
-        accessoriesTimePageTranslate(excelList, platform);
-        //6:deboot voice page translate
-        debootVoicePageTranslate(excelList, platform);
-        //7:rename page translate
-        renamePageTranslate(excelList, platform);
-        //8:use help page translate
-        useHelpPageTranslate(excelList, platform);
-        //9:deboot info page translate
-        debootInfoPageTranslate(excelList, platform);
+        if (deebotType.equals("d700")) {
+            String cleanPowerStr = morePage.cleanPower.getText();
+            String noDisturbModeStr = morePage.noDisturbMode.getText();
+            String cleanscheduleStr = morePage.cleanSchedule.getText();
+            String cleanLogStr = morePage.cleanlog.getText();
+            String accessoriesTimeStr = morePage.accessoriesTime.getText();
+            String debootVoiceStr = morePage.debootVoice.getText();
+            String renameStr = morePage.rename.getText();
+            String useHelpStr = morePage.useHelp.getText();
+            String debootInfoStr = morePage.debootInfo.getText();
+            String lookForDebootStr = morePage.lookForDeboot.getText();
+            verifyTranslate(cleanPowerStr, excelList, "more");
+            verifyTranslate(noDisturbModeStr, excelList, "more");
+            verifyTranslate(cleanscheduleStr, excelList, "more");
+            verifyTranslate(cleanLogStr, excelList, "more");
+            verifyTranslate(accessoriesTimeStr, excelList, "more");
+            verifyTranslate(debootVoiceStr, excelList, "more");
+            verifyTranslate(renameStr, excelList, "more");
+            verifyTranslate(useHelpStr, excelList, "more");
+            verifyTranslate(debootInfoStr, excelList, "more");
+            verifyTranslate(lookForDebootStr, excelList, "more");
+            //1:clean power page translate
+            cleanPowerPageTranslate(excelList, platform, deebotType);
+            //2:No disturb mode page translate
+            noDisturbPageTranslate(excelList, platform, deebotType);
+            //3:clean schedule translate
+            cleanSchedulePageTranslate(excelList, platform,deebotType);
+            //4:clean log page translate
+            cleanLogPageTranslate(excelList, platform, deebotType);
+            //5:accessories time page translate
+            accessoriesTimePageTranslate(excelList, platform, deebotType);
+            //6:deboot voice page translate
+            debootVoicePageTranslate(excelList, platform, deebotType);
+            //7:rename page translate
+            renamePageTranslate(excelList, platform, deebotType);
+            //8:use help page translate
+            useHelpPageTranslate(excelList, platform, deebotType);
+            //9:deboot info page translate
+            debootInfoPageTranslate(excelList, platform, deebotType);
+        } else if (deebotType.equals("dr930")) {
+            String cleanPowerStr = morePage.cleanPowerOnMorePageFor930.getText();
+            String waterAmountStr = morePage.waterAmountOnMorePageFor930.getText();
+            String continueSweepStr = morePage.continueSweepOnMorePageFor930.getText();
+            String noDisturbModeStr = morePage.noDisturbModeOnMorePageFor930.getText();
+            String cleanscheduleStr = morePage.cleanScheduleOnMorePageFor930.getText();
+            String resetMapStr = morePage.resetMapOnMorePageFor930.getText();
+            String cleanLogStr = morePage.cleanLogOnMorePageFor930.getText();
+            String accessoriesTimeStr = morePage.accessoriesTimeOnMorePageFor930.getText();
+            String debootVoiceStr = morePage.deebotVoiceOnMorePageFor930.getText();
+            String renameStr = morePage.renameOnMorePageFor930.getText();
+            String useHelpStr = morePage.useHelpOnMorePageFor930.getText();
+            String debootInfoStr = morePage.deebotInfoOnMorePageFor930.getText();
+            String lookForDebootStr = morePage.lookForDeebotOnMorePageFor930.getText();
+            verifyTranslate(cleanPowerStr, excelList, "more");
+            verifyTranslate(waterAmountStr, excelList, "more");
+            verifyTranslate(continueSweepStr, excelList, "more");
+            verifyTranslate(noDisturbModeStr, excelList, "more");
+            verifyTranslate(cleanscheduleStr, excelList, "more");
+            verifyTranslate(resetMapStr, excelList, "more");
+            verifyTranslate(cleanLogStr, excelList, "more");
+            verifyTranslate(accessoriesTimeStr, excelList, "more");
+            verifyTranslate(debootVoiceStr, excelList, "more");
+            verifyTranslate(renameStr, excelList, "more");
+            verifyTranslate(useHelpStr, excelList, "more");
+            verifyTranslate(debootInfoStr, excelList, "more");
+            verifyTranslate(lookForDebootStr, excelList, "more");
+            //1:clean power page translate
+            cleanPowerPageTranslate(excelList, platform, deebotType);
+            //2:water amount page translate
+            waterAmountPageTranslate(excelList, platform, deebotType);
+            //3:continue sweep page translate
+            continueSweepPageTranslate(excelList, platform, deebotType);
+            //4:No disturb mode page translate
+            noDisturbPageTranslate(excelList, platform, deebotType);
+            //5:clean schedule translate
+            cleanSchedulePageTranslate(excelList, platform,deebotType);
+            //6:reset map translate
+            resetMapPageTranslate(excelList, platform,deebotType);
+            //7:clean log page translate
+            cleanLogPageTranslate(excelList, platform, deebotType);
+            //8:accessories time page translate
+            accessoriesTimePageTranslate(excelList, platform, deebotType);
+            //9:deboot voice page translate
+            debootVoicePageTranslate(excelList, platform, deebotType);
+            //10:rename page translate
+            renamePageTranslate(excelList, platform, deebotType);
+            //11:use help page translate
+            useHelpPageTranslate(excelList, platform, deebotType);
+            //12:deboot info page translate
+            debootInfoPageTranslate(excelList, platform, deebotType);
+        }
 
     }
 
-    private void debootInfoPageTranslate(ArrayList<String> excelList, String platform) throws Exception {
+    private void resetMapPageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
-        morePage.debootInfo.click();
+        if (deebotType.equals("dr930")) {
+            morePage.resetMapOnMorePageFor930.click();
+        }
+        Thread.sleep(3000);
+        String contentStr = morePage.resetMapContentFor930.getText();
+        String cancelStr = morePage.resetMapCancelBtnFor930.getText();
+        String resetStr = morePage.resetMapResetBtnFor930.getText();
+        verifyTranslate(contentStr, excelList, "reset map");
+        verifyTranslate(cancelStr, excelList, "reset map");
+        verifyTranslate(resetStr, excelList, "reset map");
+        morePage.resetMapCancelBtnFor930.click();
+
+    }
+
+    private void continueSweepPageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
+        PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
+        if (deebotType.equals("dr930")) {
+            morePage.continueSweepOnMorePageFor930.click();
+        }
+        Thread.sleep(3000);
+        if (platform.equals("ios")) {
+            if (!CommonPage.waitElementVisible(appiumDriver, (""), 60, platform)) {
+                morePage.switchBtnOnContinueSweepPageFor930.click();
+            }
+        } else {
+            if (!CommonPage.waitElementVisible(appiumDriver, ("com.eco.global.app:id/tv_hint"), 20, platform)) {
+                morePage.switchBtnOnContinueSweepPageFor930.click();
+            }
+            Thread.sleep(6000);
+        }
+        String titleStr = morePage.titleOnContinueSweepPageFor930.getText();
+        String label1Str = morePage.label1OnContinueSweepPageFor930.getText();
+        String label2Str = morePage.label2OnContinueSweepPageFor930.getText();
+        String label3Str = morePage.label3OnContinueSweepPageFor930.getText();
+        String label4Str = morePage.label4OnContinueSweepPageFor930.getText();
+        verifyTranslate(titleStr, excelList, "continue sweep");
+        verifyTranslate(label1Str, excelList, "continue sweep");
+        verifyTranslate(label2Str, excelList, "continue sweep");
+        verifyTranslate(label3Str, excelList, "continue sweep");
+        verifyTranslate(label4Str, excelList, "continue sweep");
+        morePage.backBtnOnContinueSweepPageFor930.click();
+    }
+
+    private void waterAmountPageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
+        PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
+        if (deebotType.equals("dr930")) {
+            morePage.waterAmountOnMorePageFor930.click();
+        }
+        if (platform.equals("ios")) {
+            CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[1]"), 60, platform);
+        } else {
+            CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/titleContent"), 3, platform);
+            Thread.sleep(6000);
+        }
+        //translate sweep water amount page
+        String cancelStr = morePage.cancelBtnOnWaterAmountPageFor930.getText();
+        String titleStr = morePage.titleOnWaterAmountPageFor930.getText();
+        String saveStr = morePage.saveBtnOnWaterAmountPageFor930.getText();
+        String label1Str = morePage.label1OnWaterAmountPageFor930.getText();
+        String label2Str = morePage.label2OnWaterAmountPageFor930.getText();
+        String label3Str = morePage.label3OnWaterAmountPageFor930.getText();
+        String label4Str = morePage.label4OnWaterAmountPageFor930.getText();
+        String label5Str = morePage.label5OnWaterAmountPageFor930.getText();
+        String btnStr = morePage.startGuideBtnOnWaterAmountPageFor930.getText();
+        verifyTranslate(cancelStr, excelList, "water amount");
+        verifyTranslate(titleStr, excelList, "water amount");
+        verifyTranslate(saveStr, excelList, "water amount");
+        verifyTranslate(label1Str, excelList, "water amount");
+        verifyTranslate(label2Str, excelList, "water amount");
+        verifyTranslate(label3Str, excelList, "water amount");
+        verifyTranslate(label4Str, excelList, "water amount");
+        verifyTranslate(label5Str, excelList, "water amount");
+        verifyTranslate(btnStr, excelList, "water amount");
+        //translate sweep water amount guide page
+        morePage.startGuideBtnOnWaterAmountPageFor930.click();
+        String guide1Label1Str = morePage.stepTitleOnWaterAmountPageFor930.getText();
+        String guide1Label2Str = morePage.stepContentOnWaterAmountPageFor930.getText();
+        verifyTranslate(guide1Label1Str, excelList, "water amount");
+        verifyTranslate(guide1Label2Str, excelList, "water amount");
+        //swipe left to go ro the second guide page
+        CommonPage.swipeElementToLeft(appiumDriver,morePage.stepContentOnWaterAmountPageFor930);
+        Thread.sleep(1000);
+        String guide2Label1Str = morePage.stepTitleOnWaterAmountPageFor930.getText();
+        String guide2Label2Str = morePage.stepContentOnWaterAmountPageFor930.getText();
+        verifyTranslate(guide2Label1Str, excelList, "water amount");
+        verifyTranslate(guide2Label2Str, excelList, "water amount");
+        //swipe left to go ro the third guide page
+        CommonPage.swipeElementToLeft(appiumDriver,morePage.stepContentOnWaterAmountPageFor930);
+        Thread.sleep(1000);
+        String guide3Label1Str = morePage.stepTitleOnWaterAmountPageFor930.getText();
+        String guide3Label2Str = morePage.stepContentOnWaterAmountPageFor930.getText();
+        verifyTranslate(guide3Label1Str, excelList, "water amount");
+        verifyTranslate(guide3Label2Str, excelList, "water amount");
+        //swipe left to go ro the fourth guide page
+        CommonPage.swipeElementToLeft(appiumDriver,morePage.stepContentOnWaterAmountPageFor930);
+        Thread.sleep(1000);
+        String guide4Label1Str = morePage.stepTitleOnWaterAmountPageFor930.getText();
+        String guide4Label2Str = morePage.stepContentOnWaterAmountPageFor930.getText();
+        String guide4BtnStr = morePage.step4BtnOnWaterAmountPageFor930.getText();
+        verifyTranslate(guide4Label1Str, excelList, "water amount");
+        verifyTranslate(guide4Label2Str, excelList, "water amount");
+        verifyTranslate(guide4BtnStr, excelList, "water amount");
+        morePage.step4BtnOnWaterAmountPageFor930.click();
+        morePage.cancelBtnOnWaterAmountPageFor930.click();
+    }
+
+    private void debootInfoPageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
+        PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
+        if (deebotType.equals("d700")) {
+            morePage.debootInfo.click();
+        } else if (deebotType.equals("dr930")) {
+            morePage.deebotInfoOnMorePageFor930.click();
+        }
         if (platform.equals("ios")) {
             CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[1]"), 60, platform);
         } else {
@@ -351,9 +531,13 @@ public class TranslateSteps {
         Thread.sleep(3000);
     }
 
-    private void useHelpPageTranslate(ArrayList<String> excelList, String platform) throws Exception {
+    private void useHelpPageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
-        morePage.useHelp.click();
+        if (deebotType.equals("d700")) {
+            morePage.useHelp.click();
+        } else if (deebotType.equals("dr930")) {
+            morePage.useHelpOnMorePageFor930.click();
+        }
         if (platform.equals("ios")) {
             CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeCollectionView[1]/XCUIElementTypeCell[1]/XCUIElementTypeButton[1]"), 60, platform);
         } else {
@@ -386,9 +570,13 @@ public class TranslateSteps {
         Thread.sleep(5000);
     }
 
-    private void renamePageTranslate(ArrayList<String> excelList, String platform) throws Exception {
+    private void renamePageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
-        morePage.rename.click();
+        if (deebotType.equals("d700")) {
+            morePage.rename.click();
+        } else if (deebotType.equals("dr930")) {
+            morePage.renameOnMorePageFor930.click();
+        }
         if (platform.equals("ios")) {
             CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1]"), 60, platform);
         } else {
@@ -407,9 +595,13 @@ public class TranslateSteps {
         Thread.sleep(5000);
     }
 
-    private void debootVoicePageTranslate(ArrayList<String> excelList, String platform) throws Exception {
+    private void debootVoicePageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
-        morePage.debootVoice.click();
+        if (deebotType.equals("d700")) {
+            morePage.debootVoice.click();
+        } else if (deebotType.equals("dr930")) {
+            morePage.deebotVoiceOnMorePageFor930.click();
+        }
         if (platform.equals("ios")) {
             CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[1]"), 60, platform);
         } else {
@@ -426,9 +618,13 @@ public class TranslateSteps {
         Thread.sleep(5000);
     }
 
-    private void accessoriesTimePageTranslate(ArrayList<String> excelList, String platform) throws Exception {
+    private void accessoriesTimePageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
-        morePage.accessoriesTime.click();
+        if (deebotType.equals("d700")) {
+            morePage.accessoriesTime.click();
+        } else if (deebotType.equals("dr930")) {
+            morePage.accessoriesTimeOnMorePageFor930.click();
+        }
         if (platform.equals("ios")) {
             CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[1]"), 60, platform);
         } else {
@@ -538,9 +734,13 @@ public class TranslateSteps {
         Thread.sleep(5000);
     }
 
-    private void cleanLogPageTranslate(ArrayList<String> excelList, String platform) throws Exception {
+    private void cleanLogPageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
-        morePage.cleanlog.click();
+        if (deebotType.equals("d700")) {
+            morePage.cleanlog.click();
+        } else if (deebotType.equals("dr930")) {
+            morePage.cleanLogOnMorePageFor930.click();
+        }
         if (platform.equals("ios")) {
             CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[2]"), 60, platform);
         } else {
@@ -570,10 +770,14 @@ public class TranslateSteps {
 
     }
 
-    private void cleanSchedulePageTranslate(ArrayList<String> excelList, String platform) throws Exception {
+    private void cleanSchedulePageTranslate(ArrayList<String> excelList, String platform,String deebotType) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), CleanPage.class);
-        morePage.cleanSchedule.click();
+        if (deebotType.equals("d700")) {
+            morePage.cleanSchedule.click();
+        } else if (deebotType.equals("dr930")) {
+            morePage.cleanScheduleOnMorePageFor930.click();
+        }
         if (platform.equals("ios")) {
             CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeNavigationBar[1]/XCUIElementTypeOther[1]"), 60, platform);
         } else {
@@ -807,9 +1011,13 @@ public class TranslateSteps {
         cleanPage.cleanPageBackBtn.click();
     }
 
-    private void noDisturbPageTranslate(ArrayList<String> excelList, String platform) throws Exception {
+    private void noDisturbPageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
-        morePage.noDisturbMode.click();
+        if (deebotType.equals("d700")) {
+            morePage.noDisturbMode.click();
+        } else if (deebotType.equals("dr930")) {
+            morePage.noDisturbModeOnMorePageFor930.click();
+        }
         Thread.sleep(3000);
         String titleStr = morePage.titleContentOnNoDisturbPage.getText();
         String panel1Str = morePage.panel1OnNoDisturbPage.getText();
@@ -861,9 +1069,13 @@ public class TranslateSteps {
         Thread.sleep(3000);
     }
 
-    private void cleanPowerPageTranslate(ArrayList<String> excelList, String platform) throws Exception {
+    private void cleanPowerPageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
-        morePage.cleanPower.click();
+        if (deebotType.equals("d700")) {
+            morePage.cleanPower.click();
+        } else if (deebotType.equals("dr930")) {
+            morePage.cleanPowerOnMorePageFor930.click();
+        }
         if (platform.equals("ios")) {
             CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[1]"), 60, platform);
         } else {
@@ -881,37 +1093,113 @@ public class TranslateSteps {
         verifyTranslate(titleStr, excelList, "clean power");
         verifyTranslate(panel1Str, excelList, "clean power");
         //bug exist on 德语
-        //verifyTranslate(panel2Str, excelList, "clean power");
-        verifyTranslate(panel3Str, excelList, "clean power");
+        verifyTranslate(panel2Str, excelList, "clean power");
         morePage.cancelBtnOnCleanPowerPage.click();
         Thread.sleep(3000);
     }
 
 
-    private void guidePageTranslate(ArrayList<String> excelList, String platform) throws InterruptedException {
+    private void guidePageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws InterruptedException {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), GuidePage.class);
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), CleanPage.class);
-        if (platform.equals("ios")) {
-            CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeScrollView[1]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1]"), 60, platform);
-        } else {
-            CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/tv_mode_name"), 2, platform);
-            Thread.sleep(6000);
+        if (deebotType.equals("d700")) {
+            if (platform.equals("ios")) {
+                CommonPage.waitForVisible(appiumDriver, ("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeScrollView[1]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1]"), 60, platform);
+            } else {
+                CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/tv_mode_name"), 2, platform);
+                Thread.sleep(6000);
+            }
+            //translate the first guide page
+            String guidePageStr1 = guidePage.guidePageLayout.getText();
+            verifyTranslate(guidePageStr1, excelList, "guide");
+            cleanPage.autoClean.click();
+            Thread.sleep(5000);
+            //translate the second guide page
+            String guidePageStr2 = guidePage.guidePageElement.getText();
+            verifyTranslate(guidePageStr2, excelList, "guide");
+            cleanPage.autoClean.click();
+            Thread.sleep(5000);
+            //translate the third guide page
+            String guidePageStr3 = guidePage.guidePageElement1.getText();
+            verifyTranslate(guidePageStr3, excelList, "guide");
+            guidePage.startExperienceBtn.click();
+            Thread.sleep(2000);
         }
-        //translate the first guide page
-        String guidePageStr1 = guidePage.guidePageLayout.getText();
-        verifyTranslate(guidePageStr1, excelList, "guide");
-        cleanPage.autoClean.click();
-        Thread.sleep(5000);
-        //translate the second guide page
-        String guidePageStr2 = guidePage.guidePageElement.getText();
-        verifyTranslate(guidePageStr2, excelList, "guide");
-        cleanPage.autoClean.click();
-        Thread.sleep(5000);
-        //translate the third guide page
-        String guidePageStr3 = guidePage.guidePageElement1.getText();
-        verifyTranslate(guidePageStr3, excelList, "guide");
-        guidePage.startExperienceBtn.click();
-        Thread.sleep(2000);
+        if (deebotType.equals("dr930")) {
+            if (platform.equals("ios")) {
+                CommonPage.waitForVisible(appiumDriver, (""), 60, platform);
+            } else {
+                CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/iv_idle_clean"), 2, platform);
+                Thread.sleep(6000);
+            }
+            //translate the first guide page for 930
+            String guidePage1Str1 = guidePage.guidePage1Element1For930.getText();
+            verifyTranslate(guidePage1Str1, excelList, "guide");
+            String guidePage1Str2 = guidePage.guidePage1Element2For930.getText();
+            verifyTranslate(guidePage1Str2, excelList, "guide");
+            String guidePage1Str3 = guidePage.guidePage1Element3For930.getText();
+            verifyTranslate(guidePage1Str3, excelList, "guide");
+            String guidePage1Str4 = guidePage.guidePage1Element4For930.getText();
+            verifyTranslate(guidePage1Str4, excelList, "guide");
+            cleanPage.cleanBtnFor930.click();
+            Thread.sleep(5000);
+            //translate the second guide page for 930
+            String guidePage2Str1 = guidePage.guidePage1Element1For930.getText();
+            verifyTranslate(guidePage2Str1, excelList, "guide");
+            String guidePage2Str2 = guidePage.guidePage1Element2For930.getText();
+            verifyTranslate(guidePage2Str2, excelList, "guide");
+            String guidePage2Str3 = guidePage.guidePage1Element3For930.getText();
+            verifyTranslate(guidePage2Str3, excelList, "guide");
+            String guidePage2Str4 = guidePage.guidePage1Element4For930.getText();
+            verifyTranslate(guidePage2Str4, excelList, "guide");
+            cleanPage.cleanBtnFor930.click();
+            Thread.sleep(5000);
+            //translate the third guide page for 930
+            String guidePage3Str1 = guidePage.guidePage3Element1For930.getText();
+            verifyTranslate(guidePage3Str1, excelList, "guide");
+            String guidePage3Str2 = guidePage.guidePage3Element2For930.getText();
+            verifyTranslate(guidePage3Str2, excelList, "guide");
+            String guidePage3Str3 = guidePage.guidePage3Element3For930.getText();
+            verifyTranslate(guidePage3Str3, excelList, "guide");
+            String guidePage3Str4 = guidePage.guidePage3Element4For930.getText();
+            verifyTranslate(guidePage3Str4, excelList, "guide");
+            String guidePage3Str5 = guidePage.guidePage3Element5For930.getText();
+            verifyTranslate(guidePage3Str5, excelList, "guide");
+            cleanPage.cleanBtnFor930.click();
+            Thread.sleep(5000);
+            //translate the fourth guide page for 930
+            String guidePage4Str1 = guidePage.guidePage1Element1For930.getText();
+            verifyTranslate(guidePage4Str1, excelList, "guide");
+            String guidePage4Str2 = guidePage.guidePage1Element2For930.getText();
+            verifyTranslate(guidePage4Str2, excelList, "guide");
+            String guidePage4Str3 = guidePage.guidePage1Element3For930.getText();
+            verifyTranslate(guidePage4Str3, excelList, "guide");
+            String guidePage4Str4 = guidePage.guidePage1Element4For930.getText();
+            verifyTranslate(guidePage4Str4, excelList, "guide");
+            cleanPage.cleanBtnFor930.click();
+            Thread.sleep(5000);
+            //translate the fifth guide page for 930
+            String guidePage5Str1 = guidePage.guidePage5Element1For930.getText();
+            verifyTranslate(guidePage5Str1, excelList, "guide");
+            morePage.titleOnMorePageFor930.click();
+            Thread.sleep(5000);
+            //translate the sixth guide page for 930
+            String guidePage6Str1 = guidePage.guidePage6Element1For930.getText();
+            String guidePage6Str2 = guidePage.guidePage6Element2For930.getText();
+            String guidePage6Str3 = guidePage.startExperienceBtnFor930.getText();
+            verifyTranslate(guidePage6Str1, excelList, "guide");
+            verifyTranslate(guidePage6Str2, excelList, "guide");
+            verifyTranslate(guidePage6Str3, excelList, "guide");
+            guidePage.startExperienceBtnFor930.click();
+            //translate the seventh guide page for 930
+            String guidePage7Str1 = guidePage.guidePage7Element1For930.getText();
+            verifyTranslate(guidePage7Str1, excelList, "guide");
+            String guidePage7Str2 = guidePage.guidePage7Element2For930.getText();
+            verifyTranslate(guidePage7Str2, excelList, "guide");
+            String guidePage7Str3 = guidePage.guidePage7KnowBtnFor930.getText();
+            verifyTranslate(guidePage7Str3, excelList, "guide");
+            guidePage.guidePage7KnowBtnFor930.click();
+        }
     }
 
     private void cancelUpgradeFirmware(String platform) throws Exception {

@@ -11,8 +11,8 @@ public class TranslationStepDefinitions {
     @Steps
     TranslateSteps translateSteps;
 
-    @When("^Select (.*) and check translation result on (.*)$")
-    public void doTranslation(String language,String platform) throws Throwable {
-        translateSteps.doTranslation(language,platform);
+    @When("^Select (.*) and check translation result on (.*) for deebot (.*)$")
+    public void doTranslation(String language,String platform,String deebotType) throws Throwable {
+        translateSteps.doTranslation(language,platform,deebotType);
     }
 }

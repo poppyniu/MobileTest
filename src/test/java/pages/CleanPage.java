@@ -45,6 +45,21 @@ public class CleanPage {
     @AndroidFindBy(id="com.eco.global.app:id/top_status_more")
     public MobileElement cleanPageMoreBtn ;
 
+    //clean page element for 930
+    @iOSFindBy(xpath ="//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[6]")
+    @AndroidFindBy(id="com.eco.global.app:id/iv_idle_clean)")
+    public MobileElement cleanBtnFor930;
+    //不能用macaca定位
+    @iOSFindBy(xpath ="//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeOther[1]")
+    @AndroidFindBy(id="com.eco.global.app:id/tv_mode_name")
+    public MobileElement oneBtnCleanFor930;
+    //不能用macaca定位
+    @iOSFindBy(xpath ="//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[1]")
+    @AndroidFindBy(id="com.eco.global.app:id/tv_mode_intro")
+    public MobileElement cleanWholeHouseFor930;
+    @iOSFindBy(xpath ="//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[4]/XCUIElementTypeOther[1]/XCUIElementTypeButton[1]")
+    @AndroidFindBy(id="com.eco.global.app:id/build_tips")
+    public MobileElement buildTipFor930;
 
 
 
