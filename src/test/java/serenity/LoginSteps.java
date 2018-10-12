@@ -96,6 +96,18 @@ public class LoginSteps {
                     if (loginPage.agreeProtocolBtn.isDisplayed()) {
                         loginPage.agreeProtocolBtn.click();
                     }
+                } else if( loginPage.loginButton.isDisplayed()){
+                    loginPage.loginButton.click();
+                    Thread.sleep(2000);
+                    loginPage.registerInLoginPage.click();
+                    Thread.sleep(2000);
+                    if (loginPage.agreeProtocolBtn.isDisplayed()) {
+                        loginPage.agreeProtocolBtn.click();
+                    }
+                    CommonPage.toSelectArea(appiumDriver, tmp, platform);
+                    if (loginPage.agreeProtocolBtn.isDisplayed()) {
+                        loginPage.agreeProtocolBtn.click();
+                    }
                 }
             } catch (Exception e) {
                 CommonPage.toSelectArea(appiumDriver, tmp, platform);
@@ -121,14 +133,14 @@ public class LoginSteps {
             if (platform.equals("ios")) {
                 CommonPage.waitForVisible(appiumDriver, "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeNavigationBar[1]/XCUIElementTypeButton[1]", 10, "ios");
             } else {
-                CommonPage.waitForElement(loginPage.moreBtnInMainPage, 10);
+                CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/actionbar_left"), 50, platform);
+                // CommonPage.waitForElement(loginPage.moreBtnInMainPage, 60);
             }
-            Thread.sleep(5000);
             loginPage.moreBtnInMainPage.click();
             loginPage.userInfoInSettingPage.click();
             CommonPage.waitForElement(loginPage.logoutInUserInfoPage, 20);
             loginPage.logoutInUserInfoPage.click();
-            CommonPage.waitForElement(loginPage.registerInLoginPage, 10);
+            CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/tv_register"), 50, platform);
             //login with new user
             loginPage.mailNameInLoginPage.clear();
             loginPage.mailNameInLoginPage.sendKeys(testMailName + "@163.com");
@@ -144,7 +156,7 @@ public class LoginSteps {
             if (platform.equals("ios")) {
                 CommonPage.waitForVisible(appiumDriver, "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeNavigationBar[1]/XCUIElementTypeButton[1]", 10, "ios");
             } else {
-                CommonPage.waitForElement(loginPage.moreBtnInMainPage, 10);
+                CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/actionbar_left"), 50, platform);
             }
             loginPage.moreBtnInMainPage.click();
             loginPage.userInfoInSettingPage.click();
@@ -164,8 +176,8 @@ public class LoginSteps {
                 CommonPage.clickDone(appiumDriver);
             }
             loginPage.okBtnInUserInfoPage.click();
-            CommonPage.waitForElement(loginPage.registerInLoginPage, 20);
-//login with new password
+            CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/tv_register"), 50, platform);
+            //login with new password
             loginPage.mailNameInLoginPage.clear();
             loginPage.mailNameInLoginPage.sendKeys(testMailName + "@163.com");
             if (platform.equals("ios")) {
@@ -180,7 +192,7 @@ public class LoginSteps {
             if (platform.equals("ios")) {
                 CommonPage.waitForVisible(appiumDriver, "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeNavigationBar[1]/XCUIElementTypeButton[1]", 10, "ios");
             } else {
-                CommonPage.waitForElement(loginPage.moreBtnInMainPage, 10);
+                CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/actionbar_left"), 50, platform);
             }
             loginPage.moreBtnInMainPage.click();
             Thread.sleep(2000);
@@ -188,8 +200,9 @@ public class LoginSteps {
             CommonPage.waitForElement(loginPage.logoutInUserInfoPage, 20);
             loginPage.logoutInUserInfoPage.click();
             CommonPage.waitForElement(loginPage.registerInLoginPage, 10);
+            System.out.println(tmp + " is ok");
 /*
-    //forget password
+            //forget password
             //click forget password
             pb.forgetPWDBtnInLoginPage.click();
 
@@ -253,7 +266,6 @@ public class LoginSteps {
 */
             appiumDriver.closeApp();
             appiumDriver.launchApp();
-            System.out.println(tmp + " is ok");
             Thread.sleep(10000);
         }
     }
