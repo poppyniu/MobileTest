@@ -197,7 +197,11 @@ public class LoginSteps {
             loginPage.moreBtnInMainPage.click();
             Thread.sleep(2000);
             loginPage.userInfoInSettingPage.click();
-            CommonPage.waitForElement(loginPage.logoutInUserInfoPage, 20);
+            if (platform.equals("ios")) {
+                CommonPage.waitForVisible(appiumDriver, "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeButton[1]", 10, "ios");
+            } else {
+                CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/tv_logout"), 50, platform);
+            }
             loginPage.logoutInUserInfoPage.click();
             CommonPage.waitForElement(loginPage.registerInLoginPage, 10);
             System.out.println(tmp + " is ok");
