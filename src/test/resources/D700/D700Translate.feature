@@ -10,11 +10,11 @@ Feature:Test translation on d700
     When Choose <Country> as login country on <Platform>
     And Input <Email> and <Password> and click login button
     Then Check login succeed on <Platform>
-    And Select <language> and check translation result on <Platform>
+    And Select <language> and check translation result on <Platform> for deebot <deebotType>
     And Tear down
     Examples:
-      | Platform | Country | Email            | Password | language  |
-      | android  | 美国      | 376690275@qq.com | 665259   | zh-CN中文   |
+      | Platform | Country | Email            | Password | language  |deebotType|
+      | android  | 美国      | 376690275@qq.com | 665259   | zh-CN中文   |dr930     |
 #      | android  | 美国      | 376690275@qq.com | 665259   | en英文      |
 #      | android  | 美国      | 376690275@qq.com | 665259   | de-DE德文   |
 #      | android  | 美国      | 376690275@qq.com | 665259   | fr-FR法文   |
@@ -47,7 +47,7 @@ Feature:Test translation on d700
   @Translation1
   Scenario Outline: Test translation function on device d700 without reinstall app
     Given Set up testing environment on <Platform>
-    When Select language and check translation result on <Platform>
+    When Select language and check translation result on <Platform> for deebot <deebotType>
     And Tear down
     Examples:
       | Platform |
