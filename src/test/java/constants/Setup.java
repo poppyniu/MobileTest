@@ -34,13 +34,15 @@ public class Setup {
         } else {
             File classpathRoot = new File(System.getProperty("user.dir"));
             File appDir = new File(classpathRoot, "file");
-            File app = new File(appDir, "d700.apk");
+            File app = new File(appDir, "register.apk");
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("automationName", "Appium");
-            capabilities.setCapability("deviceName", "Nexus 6P");
+//            capabilities.setCapability("deviceName", "192.168.105.101:5555");
+            capabilities.setCapability("deviceName", "Google Nexus 6");
             capabilities.setCapability("platformName", "Android");
-            capabilities.setCapability("platformVersion", "6.0.1");
+            capabilities.setCapability("platformVersion", "7.0.0");
             capabilities.setCapability("udid", "84B7N15A20002666");
+//            capabilities.setCapability("udid", "192.168.105.101:5555");
             capabilities.setCapability("app", app.getAbsolutePath());
             //capabilities.setCapability("appPackage","com.eco.global.app");
             //capabilities.setCapability("appActivity","com.eco.main.activity.EcoMainActivity");
@@ -48,7 +50,7 @@ public class Setup {
             capabilities.setCapability("resetKeyboard", "True");
             capabilities.setCapability("noSign", "True");
             capabilities.setCapability("newCommandTimeout", 600);
-            //每次运行重新安装
+            //True每次运行不重新安装
             capabilities.setCapability("noReset", "True");
             appiumDriver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
             return appiumDriver;

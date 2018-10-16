@@ -1,11 +1,13 @@
 package serenity;
 
+import constants.JsonUtility;
 import constants.Setup;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import net.thucydides.core.annotations.Step;
+import org.apache.http.entity.StringEntity;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -37,6 +39,7 @@ public class TranslateSteps {
     CleanPage cleanPage = new CleanPage(appiumDriver);
     GuidePage guidePage = new GuidePage(appiumDriver);
     MorePage morePage = new MorePage(appiumDriver);
+    ErrorPage errorPage = new ErrorPage(appiumDriver);
     List<String> everyWeek;
 
     @Step
@@ -90,6 +93,204 @@ public class TranslateSteps {
         cleanPageTranslate(excelList, platform, deebotType);
         //check more page translate
         morePageTranslate(excelList, platform, deebotType);
+    }
+
+    @Step
+    public void doTranslationForError(String language, String platform, String deebotType) throws Exception {
+        PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), DashboardPage.class);
+        PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), SettingPage.class);
+        if (platform.equals("ios")) {
+            CommonPage.waitForVisible(appiumDriver, ("//*[@name='DEEBOT 711']"), 60, platform);
+        } else {
+            CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/robot_name"), 60, platform);
+            Thread.sleep(6000);
+        }
+        //get excel row content by column name
+        ArrayList<String> excelList = getExcelRowItemByColumnName(language);
+        String tmpLanguage = "";
+        System.out.println("********** Begin translate language : " + language);
+        if (language.equals("zh-CN中文")) {
+            tmpLanguage = "简体中文";
+        } else if (language.equals("en英文")) {
+            tmpLanguage = "English";
+        } else if (language.equals("de-DE德文")) {
+            tmpLanguage = "Deutsch";
+        } else if (language.equals("fr-FR法文")) {
+            tmpLanguage = "Français";
+        } else if (language.equals("he-IL希伯来文")) {
+            tmpLanguage = "עברית";
+        } else if (language.equals("it-IT意大利文")) {
+            tmpLanguage = "Italiano";
+        } else if (language.equals("ja-JP日文")) {
+            tmpLanguage = "日本語";
+        } else if (language.equals("ko-KR韩文")) {
+            tmpLanguage = "한국어";
+        } else if (language.equals("ms-MY马来文")) {
+            tmpLanguage = "Bahasa Melayu";
+        } else if (language.equals("pt-PT葡萄牙文")) {
+            tmpLanguage = "Português";
+        } else if (language.equals("ru-RU俄文")) {
+            tmpLanguage = "Русский";
+        } else if (language.equals("th-TH泰文")) {
+            tmpLanguage = "ไทย";
+        } else if (language.equals("zh-TW繁体中文")) {
+            tmpLanguage = "繁體中文";
+        } else if (language.equals("es-ES西班牙文")) {
+            tmpLanguage = "Español";
+        }
+        //choose language and go back to dashboard page
+        chooseLanguage(tmpLanguage, platform);
+        getIntoCleanPage(platform);
+        //send 102 error request to 930
+        StringEntity inputBody1 = new StringEntity("{\"errors\":\"102\"}");
+        JsonUtility.postJsonContent("http://localhost:3000/error", inputBody1);
+        Thread.sleep(3000);
+        TranslateError(excelList, platform, deebotType);
+        //send 103 error request to 930
+        StringEntity inputBody2 = new StringEntity("{\"errors\":\"103\"}");
+        JsonUtility.postJsonContent("http://localhost:3000/error", inputBody2);
+        Thread.sleep(3000);
+        TranslateError(excelList, platform, deebotType);
+        //send 104 error request to 930
+        StringEntity inputBody3 = new StringEntity("{\"errors\":\"104\"}");
+        JsonUtility.postJsonContent("http://localhost:3000/error", inputBody3);
+        Thread.sleep(3000);
+        TranslateError(excelList, platform, deebotType);
+        //send 105 error request to 930
+        StringEntity inputBody4 = new StringEntity("{\"errors\":\"105\"}");
+        JsonUtility.postJsonContent("http://localhost:3000/error", inputBody4);
+        Thread.sleep(3000);
+        TranslateError(excelList, platform, deebotType);
+        //send 108 error request to 930
+        StringEntity inputBody5 = new StringEntity("{\"errors\":\"108\"}");
+        JsonUtility.postJsonContent("http://localhost:3000/error", inputBody5);
+        Thread.sleep(3000);
+        TranslateError(excelList, platform, deebotType);
+        //send 109 error request to 930
+        StringEntity inputBody6 = new StringEntity("{\"errors\":\"109\"}");
+        JsonUtility.postJsonContent("http://localhost:3000/error", inputBody6);
+        Thread.sleep(3000);
+        TranslateError(excelList, platform, deebotType);
+        //send 110 error request to 930
+        StringEntity inputBody7 = new StringEntity("{\"errors\":\"110\"}");
+        JsonUtility.postJsonContent("http://localhost:3000/error", inputBody7);
+        Thread.sleep(3000);
+        TranslateError(excelList, platform, deebotType);
+        //send 111 error request to 930
+        StringEntity inputBody8 = new StringEntity("{\"errors\":\"111\"}");
+        JsonUtility.postJsonContent("http://localhost:3000/error", inputBody8);
+        Thread.sleep(3000);
+        TranslateError(excelList, platform, deebotType);
+        //send 112 error request to 930
+        StringEntity inputBody9 = new StringEntity("{\"errors\":\"112\"}");
+        JsonUtility.postJsonContent("http://localhost:3000/error", inputBody9);
+        Thread.sleep(3000);
+        TranslateError(excelList, platform, deebotType);
+        //send all 9 error request to 930
+        StringEntity inputBody10 = new StringEntity("{\"errors\":\"102,103,104,105,108,109,110,111,112\"}");
+        JsonUtility.postJsonContent("http://localhost:3000/error", inputBody10);
+        Thread.sleep(3000);
+        TranslateError(excelList, platform, deebotType);
+        TranlateManyError(excelList, platform, deebotType);
+
+    }
+
+    private void getIntoCleanPage(String platform) throws InterruptedException {
+        PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), DashboardPage.class);
+        PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), CleanPage.class);
+        if (platform.equals("ios")) {
+            CommonPage.waitForVisible(appiumDriver, ("//*[@name='DEEBOT 711']"), 60, platform);
+        } else {
+            CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/robot_image"), 3, platform);
+            Thread.sleep(5000);
+        }
+        dashboardPage.D700RobotName.click();
+        if (platform.equals("ios")) {
+            CommonPage.waitForVisible(appiumDriver, (""), 60, platform);
+        } else {
+            CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/tv_mode_name"), 3, platform);
+            Thread.sleep(5000);
+        }
+    }
+
+    private void TranlateManyError(ArrayList<String> excelList, String platform, String deebotType) throws InterruptedException {
+        PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), ErrorPage.class);
+        if (platform.equals("ios")) {
+            CommonPage.waitForVisible(appiumDriver, (""), 60, platform);
+        } else {
+            CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/tv_content"), 60, platform);
+            Thread.sleep(6000);
+        }
+        if (deebotType.equals("dr930")) {
+            String manyErrorStr = errorPage.manyErrorInfo.getText();
+            verifyTranslate(manyErrorStr, excelList, "many error");
+            errorPage.manyErrorInfo.click();
+            String errorInfoPageTitle = errorPage.errorInfoPageTitle.getText();
+            String errorTitleStr1 = errorPage.errorTitleList.get(0).getText();
+            System.out.println("00000000000errorTitleStr1"+errorTitleStr1);
+            String errorContentStr1 = errorPage.errorContentList.get(0).getText();
+            System.out.println("00000000000errorContentStr1"+errorContentStr1);
+            String errorTitleStr2 = errorPage.errorTitleList.get(1).getText();
+            String errorContentStr2 = errorPage.errorContentList.get(1).getText();
+            String errorTitleStr3 = errorPage.errorTitleList.get(2).getText();
+            String errorContentStr3 = errorPage.errorContentList.get(2).getText();
+            String errorTitleStr4 = errorPage.errorTitleList.get(3).getText();
+            String errorContentStr4 = errorPage.errorContentList.get(3).getText();
+            String errorTitleStr5 = errorPage.errorTitleList.get(4).getText();
+            String errorContentStr5 = errorPage.errorContentList.get(4).getText();
+            String errorTitleStr6 = errorPage.errorTitleList.get(5).getText();
+            String errorContentStr6 = errorPage.errorContentList.get(5).getText();
+            verifyTranslate(errorInfoPageTitle, excelList, "many error");
+            verifyTranslate(errorTitleStr1, excelList, "many error");
+            verifyTranslate(errorContentStr1, excelList, "many error");
+            verifyTranslate(errorTitleStr2, excelList, "many error");
+            verifyTranslate(errorContentStr2, excelList, "many error");
+            verifyTranslate(errorTitleStr3, excelList, "many error");
+            verifyTranslate(errorContentStr3, excelList, "many error");
+            verifyTranslate(errorTitleStr4, excelList, "many error");
+            verifyTranslate(errorContentStr4, excelList, "many error");
+            verifyTranslate(errorTitleStr5, excelList, "many error");
+            verifyTranslate(errorContentStr5, excelList, "many error");
+            verifyTranslate(errorTitleStr6, excelList, "many error");
+            verifyTranslate(errorContentStr6, excelList, "many error");
+            CommonPage.swipeToDirection(appiumDriver, "up");
+            Thread.sleep(3000);
+            String errorTitleStr7 = errorPage.errorTitleList.get(6).getText();
+            String errorContentStr7 = errorPage.errorContentList.get(6).getText();
+            String errorTitleStr8 = errorPage.errorTitleList.get(7).getText();
+            String errorContentStr8 = errorPage.errorContentList.get(7).getText();
+            String errorTitleStr9 = errorPage.errorTitleList.get(8).getText();
+            String errorContentStr9 = errorPage.errorContentList.get(8).getText();
+            verifyTranslate(errorTitleStr7, excelList, "many error");
+            verifyTranslate(errorContentStr7, excelList, "many error");
+            verifyTranslate(errorTitleStr8, excelList, "many error");
+            verifyTranslate(errorContentStr8, excelList, "many error");
+            verifyTranslate(errorTitleStr9, excelList, "many error");
+            verifyTranslate(errorContentStr9, excelList, "many error");
+            errorPage.backBtn.click();
+        }
+    }
+
+    private void TranslateError(ArrayList<String> excelList, String platform, String deebotType) throws InterruptedException {
+        PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), ErrorPage.class);
+        if (deebotType.equals("dr930")) {
+            if (platform.equals("ios")) {
+                CommonPage.waitForVisible(appiumDriver, (""), 60, platform);
+            } else {
+                CommonPage.waitForVisible(appiumDriver, ("com.eco.global.app:id/tv_content"), 60, platform);
+                Thread.sleep(6000);
+            }
+            String errorContentStr = errorPage.errorContent.getText();
+            String errorCancelStr = errorPage.errorCancelBtn.getText();
+            String errorViewStr = errorPage.errorViewBtn.getText();
+            verifyTranslate(errorContentStr, excelList, "error");
+            verifyTranslate(errorCancelStr, excelList, "error");
+            verifyTranslate(errorViewStr, excelList, "error");
+            errorPage.errorCancelBtn.click();
+            Thread.sleep(2000);
+            String error2Str = errorPage.manyErrorInfo.getText();
+            verifyTranslate(error2Str, excelList, "error");
+        }
     }
 
     private void dashboardPageTranslate(ArrayList<String> excelList) throws InterruptedException {
@@ -255,7 +456,7 @@ public class TranslateSteps {
             //2:No disturb mode page translate
             noDisturbPageTranslate(excelList, platform, deebotType);
             //3:clean schedule translate
-            cleanSchedulePageTranslate(excelList, platform,deebotType);
+            cleanSchedulePageTranslate(excelList, platform, deebotType);
             //4:clean log page translate
             cleanLogPageTranslate(excelList, platform, deebotType);
             //5:accessories time page translate
@@ -304,9 +505,9 @@ public class TranslateSteps {
             //4:No disturb mode page translate
             noDisturbPageTranslate(excelList, platform, deebotType);
             //5:clean schedule translate
-            cleanSchedulePageTranslate(excelList, platform,deebotType);
+            cleanSchedulePageTranslate(excelList, platform, deebotType);
             //6:reset map translate
-            resetMapPageTranslate(excelList, platform,deebotType);
+            resetMapPageTranslate(excelList, platform, deebotType);
             //7:clean log page translate
             cleanLogPageTranslate(excelList, platform, deebotType);
             //8:accessories time page translate
@@ -405,21 +606,21 @@ public class TranslateSteps {
         verifyTranslate(guide1Label1Str, excelList, "water amount");
         verifyTranslate(guide1Label2Str, excelList, "water amount");
         //swipe left to go ro the second guide page
-        CommonPage.swipeElementToLeft(appiumDriver,morePage.stepContentOnWaterAmountPageFor930);
+        CommonPage.swipeElementToLeft(appiumDriver, morePage.stepContentOnWaterAmountPageFor930);
         Thread.sleep(1000);
         String guide2Label1Str = morePage.stepTitleOnWaterAmountPageFor930.getText();
         String guide2Label2Str = morePage.stepContentOnWaterAmountPageFor930.getText();
         verifyTranslate(guide2Label1Str, excelList, "water amount");
         verifyTranslate(guide2Label2Str, excelList, "water amount");
         //swipe left to go ro the third guide page
-        CommonPage.swipeElementToLeft(appiumDriver,morePage.stepContentOnWaterAmountPageFor930);
+        CommonPage.swipeElementToLeft(appiumDriver, morePage.stepContentOnWaterAmountPageFor930);
         Thread.sleep(1000);
         String guide3Label1Str = morePage.stepTitleOnWaterAmountPageFor930.getText();
         String guide3Label2Str = morePage.stepContentOnWaterAmountPageFor930.getText();
         verifyTranslate(guide3Label1Str, excelList, "water amount");
         verifyTranslate(guide3Label2Str, excelList, "water amount");
         //swipe left to go ro the fourth guide page
-        CommonPage.swipeElementToLeft(appiumDriver,morePage.stepContentOnWaterAmountPageFor930);
+        CommonPage.swipeElementToLeft(appiumDriver, morePage.stepContentOnWaterAmountPageFor930);
         Thread.sleep(1000);
         String guide4Label1Str = morePage.stepTitleOnWaterAmountPageFor930.getText();
         String guide4Label2Str = morePage.stepContentOnWaterAmountPageFor930.getText();
@@ -770,7 +971,7 @@ public class TranslateSteps {
 
     }
 
-    private void cleanSchedulePageTranslate(ArrayList<String> excelList, String platform,String deebotType) throws Exception {
+    private void cleanSchedulePageTranslate(ArrayList<String> excelList, String platform, String deebotType) throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), MorePage.class);
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), CleanPage.class);
         if (deebotType.equals("d700")) {

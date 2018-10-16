@@ -13,8 +13,8 @@ Feature:Test translation on dr930
     And Select <language> and check translation result on <Platform> for deebot <deebotType>
     And Tear down
     Examples:
-      | Platform | Country | Email            | Password | language  |deebotType|
-      | ios  | 中国      | 18616915369 | 665258   | zh-CN中文   |  dr930       |
+      | Platform | Country | Email       | Password | language | deebotType |
+      | android  | 中国      | 18616915369 | 665258   | zh-CN中文  | dr930      |
 #      | android  | 美国      | 376690275@qq.com | 665259   | en英文      |
 #      | android  | 美国      | 376690275@qq.com | 665259   | de-DE德文   |
 #      | android  | 美国      | 376690275@qq.com | 665259   | fr-FR法文   |
@@ -44,12 +44,27 @@ Feature:Test translation on dr930
       #| ios  | 美国      | 376690275@qq.com | 665259 | es-ES西班牙文 |
 
 
-  @Translation1
-  Scenario Outline: Test translation function on device d700 without reinstall app
+  @error
+  Scenario Outline: Test translation function for error feature on device dr930
     Given Set up testing environment on <Platform>
-    When Select language and check translation result on <Platform>
+#    When Choose <Country> as login country on <Platform>
+#    And Input <Email> and <Password> and click login button
+#    Then Check login succeed on <Platform>
+    And Select <language> and check translation for all error info on <Platform> for deebot <DeebotType>
     And Tear down
     Examples:
-      | Platform |
-      | ios      |
+      | Platform | Country | Email       | Password | language | DeebotType |
+      | android  | 中国      | 13402516615 | 12345678 | zh-CN中文  | dr930      |
+#       | android  | 美国      | 376690275@qq.com | 665259   | de-DE德文   |dr930      |
+#      | android  | 美国      | 376690275@qq.com | 665259   | fr-FR法文   |dr930      |
+#      | android  | 美国      | 376690275@qq.com | 665259   | he-IL希伯来文 |dr930      |
+#      | android  | 美国      | 376690275@qq.com | 665259   | it-IT意大利文 |dr930      |
+#      | android  | 美国      | 376690275@qq.com | 665259   | ja-JP日文   |dr930      |
+#      | android  | 美国      | 376690275@qq.com | 665259   | ko-KR韩文   |dr930      |
+#      | android  | 美国      | 376690275@qq.com | 665259   | ms-MY马来文  |dr930      |
+#      | android  | 美国      | 376690275@qq.com | 665259   | pt-PT葡萄牙文 |dr930      |
+#      | android  | 美国      | 376690275@qq.com | 665259   | ru-RU俄文   |dr930      |
+#      | android  | 美国      | 376690275@qq.com | 665259   | th-TH泰文   |dr930      |
+#      | android  | 美国      | 376690275@qq.com | 665259   | zh-TW繁体中文 |dr930      |
+#      | android  | 美国      | 376690275@qq.com | 665259   | es-ES西班牙文 |dr930      |
 
