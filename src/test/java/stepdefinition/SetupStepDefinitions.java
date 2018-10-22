@@ -15,9 +15,9 @@ public class SetupStepDefinitions {
     @Steps
     SetupSteps setupSteps=new SetupSteps();
 
-    @Given("^Set up testing environment on (.*)$")
-    public void set_up_testing_environment_on_android(String platfrom) throws Throwable {
-        setupSteps.setUp(platfrom);
+    @Given("^Set up testing environment on (.*) for deebot (.*)$")
+    public void set_up_testing_environment_on_android(String platfrom,String deebotType) throws Throwable {
+        setupSteps.setUp(platfrom,deebotType);
     }
 
     @And("^Tear down$")

@@ -12,14 +12,32 @@ public class TranslationStepDefinitions {
     @Steps
     TranslateSteps translateSteps;
 
-    @When("^Select (.*) and check translation result on (.*) for deebot (.*)$")
-    public void doTranslation(String language,String platform,String deebotType) throws Throwable {
-        translateSteps.doTranslation(language,platform,deebotType);
+    @And("^Select (.*) for translation on (.*)$")
+    public void selectLanguage(String language,String platform) throws Throwable {
+        translateSteps.selectLanguage(language,platform);
     }
 
-    @And("^Select (.*) and check translation for all error info on (.*) for deebot (.*)$")
-    public void doTranslationForError(String language,String platform,String deebotType) throws Throwable {
-        translateSteps.doTranslationForError(language,platform,deebotType);
+    @And("^Translate guide page for (.*) on (.*) for deebot (.*)$")
+    public void guidePageTranslate(String language,String platform,String deebotType) throws Throwable {
+        translateSteps.guidePageTranslate(language,platform,deebotType);
     }
+
+    @And("^Translate clean page for (.*) on (.*) for deebot (.*)$")
+    public void cleanPageTranslate(String language,String platform,String deebotType) throws Throwable {
+        translateSteps.cleanPageTranslate(language,platform,deebotType);
+    }
+
+    @And("^Translate error page for (.*) on (.*) for deebot (.*)$")
+    public void errorPageTranslate(String language,String platform,String deebotType) throws Throwable {
+        translateSteps.errorPageTranslate(language,platform,deebotType);
+    }
+
+    @And("^Translate more page for (.*) on (.*) for deebot (.*)$")
+    public void morePageTranslate(String language,String platform,String deebotType) throws Throwable {
+        translateSteps.morePageTranslate(language,platform,deebotType);
+    }
+
+
+
 
 }

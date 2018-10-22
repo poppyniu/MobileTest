@@ -39,6 +39,10 @@ public class LoginSteps {
     public void global_login(String email, String password) throws Exception {
         //initial login page
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), LoginPage.class);
+        if(loginPage.loginPageCurrentCountry.getText().equals("中国")){
+            loginPage.switchToPwdLoginBtn.click();
+            Thread.sleep(1000);
+        }
         if (email != null && password != null) {
             loginPage.emailAccountTextbox.clear();
             loginPage.emailAccountTextbox.sendKeys(email);

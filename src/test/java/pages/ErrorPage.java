@@ -26,17 +26,23 @@ public class ErrorPage {
     @AndroidFindBy(id="com.eco.global.app:id/mavelRoundBgView")
     public MobileElement manyErrorInfo;
     @iOSFindBy(xpath = "")
-    @AndroidFindBy(id="com.eco.global.app:id/mavelRoundBgView")
+    @AndroidFindBy(id="com.eco.global.app:id/titleContent")
     public MobileElement errorInfoPageTitle;
     @iOSFindBy(xpath = "")
     @AndroidFindBy(id = "com.eco.global.app:id/tv_title")
     public List<MobileElement> errorTitleList;
     @iOSFindBy(xpath = "")
-    @AndroidFindBy(id = "com.eco.global.app:id/tv_contentcom.eco.global.app:id/tv_title")
+    @AndroidFindBy(id = "com.eco.global.app:id/tv_content")
     public List<MobileElement> errorContentList;
     @iOSFindBy(xpath = "")
     @AndroidFindBy(id = "com.eco.global.app:id/title_back")
     public MobileElement backBtn;
+    @iOSFindBy(xpath = "")
+    @AndroidFindBy(xpath = "//android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.RelativeLayout[5]/android.widget.RelativeLayout[1]/android.widget.LinearLayout[1]/android.widget.TextView[2]")
+    public MobileElement manyErrorPageFifthElement;
+
+
+
 
 
 

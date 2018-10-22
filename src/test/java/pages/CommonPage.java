@@ -149,6 +149,14 @@ public class CommonPage {
 
     }
 
+    public static void flickToDirection(AppiumDriver driver, String direction) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        Map<String, Object> params = new HashMap<>();
+        params.put("direction", direction);
+        js.executeScript("mobile: flick", params);
+
+    }
+
 
     //控制滑动方向
     public enum Heading {
@@ -215,8 +223,41 @@ public class CommonPage {
         TouchAction ta = new TouchAction(driver);
         //ta.press(centerX, centerY).moveTo(100 - centerX, 0).release().perform();
         ta.press(centerX, centerY).moveTo(200 - centerX, 0).release().perform();
-
     }
+
+    public static void swipeElementToLeft1(AppiumDriver driver, MobileElement element) throws InterruptedException {
+        Point point = element.getLocation();
+        int startX = point.x;
+        int startY = point.y;
+        Dimension dimension = element.getSize();
+        int width = dimension.getWidth();
+        int height = dimension.getHeight();
+
+        int centerX = startX + width * 1 / 2;
+        int centerY = startY + height * 1 / 2;
+        TouchAction ta = new TouchAction(driver);
+        ta.press(centerX, centerY).moveTo(400 - centerX, 0).release().perform();
+    }
+
+    public static void swipeElementToUp(AppiumDriver driver, WebElement element) {
+        //元素起始x和y坐标
+        Point point = element.getLocation();
+        int startX = point.x;
+        int startY = point.y;
+        System.out.println("元素起始x=" + startX + ",元素起始y=" + startY);
+        //计算元素的宽和高
+        Dimension dimension = element.getSize();
+        int width = dimension.getWidth();
+        int height = dimension.getHeight();
+        System.out.println("元素宽width=" + width + ",元素高height=" + height);
+        //计算元素中间坐标
+        int centerX = startX + width * 1 / 2;
+        int centerY = startY + height * 1/ 2;
+        System.out.println("元素中心点距边框宽centerX=" + centerX + ",高centerY=" + centerY);
+        TouchAction action = new TouchAction(driver);
+        action.press(centerX, centerY).moveTo(0, centerY - 400).release().perform();
+    }
+
 
     public static void toSelectArea(AppiumDriver driver, String area, String platform) {
         MobileElement textViewCountry = null;

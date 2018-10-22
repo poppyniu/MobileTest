@@ -321,6 +321,9 @@ public class MorePage {
     @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[2]/XCUIElementTypeStaticText[1]")
     @AndroidFindBy(id = "com.eco.global.app:id/tv_left")
     public MobileElement chooseLanguageOnDebootVoicePage;
+    @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeNavigationBar[1]/XCUIElementTypeButton[2]")
+    @AndroidFindBy(id = "com.eco.global.app:id/right")
+    public MobileElement saveBtnOnDebootVoicePage;
 
     //rename page element
     @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeNavigationBar[1]/XCUIElementTypeOther[1]")
@@ -428,6 +431,7 @@ public class MorePage {
     @AndroidFindBy(xpath = "//android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.RelativeLayout[2]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.TextView[1]")
     public MobileElement wifiStrengthValueOnNetInfoPage;
 
+
     //more page element for dr930
     @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeNavigationBar[1]/XCUIElementTypeOther[1]")
     @AndroidFindBy(xpath = "//android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.TextView[2]")
@@ -456,8 +460,8 @@ public class MorePage {
     @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[8]/XCUIElementTypeStaticText[1]")
     @AndroidFindBy(xpath = "//android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.RelativeLayout[8]/android.widget.TextView[1]")
     public MobileElement accessoriesTimeOnMorePageFor930;
-    @iOSFindBy(xpath = "//android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.RelativeLayout[9]/android.widget.TextView[1]")
-    @AndroidFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[9]/XCUIElementTypeStaticText[1]")
+    @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[9]/XCUIElementTypeStaticText[1]")
+    @AndroidFindBy(xpath = "//android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.RelativeLayout[9]/android.widget.TextView[1]")
     public MobileElement deebotVoiceOnMorePageFor930;
     @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[10]/XCUIElementTypeStaticText[1]")
     @AndroidFindBy(xpath = "//android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.RelativeLayout[10]/android.widget.TextView[1]")
@@ -508,7 +512,7 @@ public class MorePage {
     @AndroidFindBy(id = "com.eco.global.app:id/tv_page_contents")
     public MobileElement stepContentOnWaterAmountPageFor930;
     @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeScrollView[1]/XCUIElementTypeOther[1]/XCUIElementTypeButton[1]")
-    @AndroidFindBy(className = "android.widget.Button")
+    @AndroidFindBy(xpath = "//android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.support.v4.view.ViewPager[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.Button[1]")
     public MobileElement step4BtnOnWaterAmountPageFor930;
 
     //continue sweep page element for 930
@@ -539,11 +543,34 @@ public class MorePage {
     @AndroidFindBy(id = "com.eco.global.app:id/tv_content")
     public MobileElement resetMapContentFor930;
     @iOSFindBy(xpath = "//android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.TextView[1]")
-    @AndroidFindBy(id = "com.eco.global.app:id/tv_content")
+    @AndroidFindBy(id = "com.eco.global.app:id/tv_cancel")
     public MobileElement resetMapCancelBtnFor930;
     @iOSFindBy(xpath = "//android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.TextView[2]")
-    @AndroidFindBy(id = "com.eco.global.app:id/tv_content")
+    @AndroidFindBy(id = "com.eco.global.app:id/tv_neutral")
     public MobileElement resetMapResetBtnFor930;
+
+    //930 wifi map page element
+    @iOSFindBy(xpath = "")
+    @AndroidFindBy(xpath = "//android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.RelativeLayout[4]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.TextView[1]")
+    public MobileElement wifiMapOnNetInfoPage;
+    @iOSFindBy(xpath = "")
+    @AndroidFindBy(id = "com.eco.global.app:id/titleContent")
+    public MobileElement wifiMapTitle;
+    @iOSFindBy(xpath = "")
+    @AndroidFindBy(id = "com.eco.global.app:id/routor_text")
+    public MobileElement wifiMapLabel1;
+    @iOSFindBy(xpath = "")
+    @AndroidFindBy(id = "com.eco.global.app:id/wifi_streth")
+    public MobileElement wifiMapLabel2;
+    @iOSFindBy(xpath = "")
+    @AndroidFindBy(id = "com.eco.global.app:id/strengh_strong")
+    public MobileElement wifiMapLabel3;
+    @iOSFindBy(xpath = "")
+    @AndroidFindBy(id = "com.eco.global.app:id/strengh_week")
+    public MobileElement wifiMapLabel4;
+    @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeNavigationBar[1]/XCUIElementTypeButton[1]")
+    @AndroidFindBy(id = "com.eco.global.app:id/title_back")
+    public MobileElement backBtnOnWifiMapPage;
 
 
     public MorePage(AppiumDriver driver) {

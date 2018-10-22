@@ -14,7 +14,7 @@ import java.net.URL;
 public class Setup {
     public static AppiumDriver appiumDriver;
 
-    public AppiumDriver setUp(String platform) throws Exception {
+    public AppiumDriver setUp(String platform,String deebotType) throws Exception {
         if (platform.equals("ios")) {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("deviceName", "iPhone");
@@ -23,7 +23,8 @@ public class Setup {
             capabilities.setCapability("bundleId", "com.eco.global.app");
             capabilities.setCapability("udid", "4e3b8c6a88f5d84f6a512ebc666876c3ac5d6358");
             //capabilities.setCapability("udid", "741f52d3db805f3ea97a93781ece67b311c8c324");
-            capabilities.setCapability("app", "/Users/ecovacsqa/Desktop/GlobalAppTranslate/file/GlobalApp.ipa");
+            //capabilities.setCapability("app", "/Users/ecovacsqa/Desktop/GlobalAppTranslate/file/GlobalApp.ipa");
+            capabilities.setCapability("app", "/Users/ecovacsqa/Desktop/GlobalAppTranslate/file/"+deebotType+".ipa");
             capabilities.setCapability("automationName", "xcuitest");
             capabilities.setCapability("autoAcceptAlerts", "True");
             capabilities.setCapability("noSign", "True");
@@ -34,13 +35,13 @@ public class Setup {
         } else {
             File classpathRoot = new File(System.getProperty("user.dir"));
             File appDir = new File(classpathRoot, "file");
-            File app = new File(appDir, "register.apk");
+            File app = new File(appDir, deebotType+".apk");
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("automationName", "Appium");
 //            capabilities.setCapability("deviceName", "192.168.105.101:5555");
-            capabilities.setCapability("deviceName", "Google Nexus 6");
+            capabilities.setCapability("deviceName", "Nexus 6");
             capabilities.setCapability("platformName", "Android");
-            capabilities.setCapability("platformVersion", "7.0.0");
+            capabilities.setCapability("platformVersion", "6.0.0");
             capabilities.setCapability("udid", "84B7N15A20002666");
 //            capabilities.setCapability("udid", "192.168.105.101:5555");
             capabilities.setCapability("app", app.getAbsolutePath());
@@ -51,7 +52,7 @@ public class Setup {
             capabilities.setCapability("noSign", "True");
             capabilities.setCapability("newCommandTimeout", 600);
             //True每次运行不重新安装
-            capabilities.setCapability("noReset", "True");
+            capabilities.setCapability("noReset", "False");
             appiumDriver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
             return appiumDriver;
         }
