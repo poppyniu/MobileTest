@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
  * Created by poppy zhang on 2018/8/9.
  */
 public class DashboardPage {
-    @iOSFindBy(xpath = "//*[@name='DEEBOT 705']")
+    @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[2]")
     @AndroidFindBy(id="com.eco.global.app:id/robot_name")
     public MobileElement D700RobotName;
     @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeNavigationBar[1]/XCUIElementTypeButton[1]")

@@ -13,31 +13,31 @@ import java.util.List;
  * Created by poppy zhang on 2018/8/9.
  */
 public class ErrorPage {
-    @iOSFindBy(xpath = "")
+    @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeAlert[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1]")
     @AndroidFindBy(id="com.eco.global.app:id/tv_content")
     public MobileElement errorContent;
-    @iOSFindBy(xpath = "")
+    @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeAlert[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeButton[1]")
     @AndroidFindBy(id="com.eco.global.app:id/tv_cancel")
     public MobileElement errorCancelBtn;
-    @iOSFindBy(xpath = "")
+    @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeAlert[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[3]/XCUIElementTypeButton[1]")
     @AndroidFindBy(id="com.eco.global.app:id/tv_positive")
     public MobileElement errorViewBtn;
-    @iOSFindBy(xpath = "")
+    @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[3]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1]")
     @AndroidFindBy(id="com.eco.global.app:id/mavelRoundBgView")
     public MobileElement manyErrorInfo;
-    @iOSFindBy(xpath = "")
+    @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeNavigationBar[1]/XCUIElementTypeOther[1]")
     @AndroidFindBy(id="com.eco.global.app:id/titleContent")
     public MobileElement errorInfoPageTitle;
-    @iOSFindBy(xpath = "")
+    @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/*/XCUIElementTypeStaticText[1]")
     @AndroidFindBy(id = "com.eco.global.app:id/tv_title")
     public List<MobileElement> errorTitleList;
-    @iOSFindBy(xpath = "")
+    @iOSFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/*/XCUIElementTypeStaticText[2]")
     @AndroidFindBy(id = "com.eco.global.app:id/tv_content")
     public List<MobileElement> errorContentList;
-    @iOSFindBy(xpath = "")
+    @iOSFindBy(xpath = "//*[@name=\"comnav back black\"]")
     @AndroidFindBy(id = "com.eco.global.app:id/title_back")
     public MobileElement backBtn;
-    @iOSFindBy(xpath = "")
+    @iOSFindBy(xpath = "//poppy")
     @AndroidFindBy(xpath = "//android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.RelativeLayout[5]/android.widget.RelativeLayout[1]/android.widget.LinearLayout[1]/android.widget.TextView[2]")
     public MobileElement manyErrorPageFifthElement;
 

@@ -39,7 +39,7 @@ public class LoginSteps {
     public void global_login(String email, String password) throws Exception {
         //initial login page
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver, 10, SECONDS), LoginPage.class);
-        if(loginPage.loginPageCurrentCountry.getText().equals("中国")){
+        if (loginPage.loginPageCurrentCountry.getText().contains("中国")) {
             loginPage.switchToPwdLoginBtn.click();
             Thread.sleep(1000);
         }
@@ -48,7 +48,11 @@ public class LoginSteps {
             loginPage.emailAccountTextbox.sendKeys(email);
             loginPage.passwordTextbox.clear();
             loginPage.passwordTextbox.sendKeys(password);
-            loginPage.loginButton.click();
+            if (loginPage.iphoneFinishBtn.isDisplayed()) {
+                loginPage.iphoneFinishBtn.click();
+            } else {
+                loginPage.loginButton.click();
+            }
         }
     }
 
@@ -100,7 +104,7 @@ public class LoginSteps {
                     if (loginPage.agreeProtocolBtn.isDisplayed()) {
                         loginPage.agreeProtocolBtn.click();
                     }
-                } else if( loginPage.loginButton.isDisplayed()){
+                } else if (loginPage.loginButton.isDisplayed()) {
                     loginPage.loginButton.click();
                     Thread.sleep(2000);
                     loginPage.registerInLoginPage.click();

@@ -20,7 +20,8 @@ public class Setup {
             capabilities.setCapability("deviceName", "iPhone");
             capabilities.setCapability("platformName", "iOS");
             capabilities.setCapability("platformVersion", "11.2.6");
-            capabilities.setCapability("bundleId", "com.eco.global.app");
+            //capabilities.setCapability("bundleId", "com.eco.global.app");
+            capabilities.setCapability("bundleId", "com.vivien.demo");
             capabilities.setCapability("udid", "4e3b8c6a88f5d84f6a512ebc666876c3ac5d6358");
             //capabilities.setCapability("udid", "741f52d3db805f3ea97a93781ece67b311c8c324");
             //capabilities.setCapability("app", "/Users/ecovacsqa/Desktop/GlobalAppTranslate/file/GlobalApp.ipa");
@@ -38,7 +39,7 @@ public class Setup {
             File app = new File(appDir, deebotType+".apk");
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("automationName", "Appium");
-//            capabilities.setCapability("deviceName", "192.168.105.101:5555");
+            //capabilities.setCapability("deviceName", "192.168.105.101:5555");
             capabilities.setCapability("deviceName", "Nexus 6");
             capabilities.setCapability("platformName", "Android");
             capabilities.setCapability("platformVersion", "6.0.0");
